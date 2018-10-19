@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">DoctorsApp</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="dashboard_cap">DASHBOARD</string>
+    <string name="message">Message</string>
+    <string name="home_service">Home Service</string>
+    <string name="video_call">Video Call</string>
+    <string name="audio_call">Audio Call</string>
+    <string name="appointments">Appointments</string>
+    <string name="blog">Blog</string>
+    <string name="receptionist">Receptionist</string>
+    <string name="others">Others</string>
+    <string name="doctor_profile_image">Doctor Profile Image</string>
+    <string name="doctor_name">Dr. Jhon Doe</string>
+    <string name="doctor_email">doctor.doc@gmail.com</string>
+    <string name="income">Income</string>
+    <string name="income_cap">INCOME</string>
+    <string name="profile">Profile</string>
+    <string name="profile_cap">PROFILE</string>
+    <string name="close_navbar">Close</string>
+    <string name="open_navbar">Open</string>
+    <string name="developer_name">Dr Sadman Shamsuddin</string>
+    <string name="welcome_note">Welcome to our app. Thanks for using it.</string>
+    <string name="edit_image">Edit Profile</string>
+    <string name="payment_image">Save Payment Methods</string>
+    <string name="mail_image">Mail Image</string>
+    <string name="phone_image">Phone</string>
+    <string name="developer_phone">+880 1999875456</string>
+    <string name="home_image">Home</string>
+    <string name="developer_home">47/10 West Razabazar</string>
+    <string name="developer_gender">Male</string>
+    <string name="developer_dob">Mar 22, 1995</string>
+    <string name="bangladesh">Bangladesh</string>
+    <string name="flag_image">Flag</string>
+    <string name="dob_image">DOB</string>
+    <string name="help">Help</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="developer_email">sadman15–5483@diu.edu.bd</string>
+    <string name="your_all_appointments">All your appointment</string>
+    <string name="wooops_you_don_t_have_any_appointments">You don\'t have any appointment</string>
+    <string name="cancel_image">Cancel</string>
+    <string name="location">Location: Sukrabad, dhaka</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="dr_jhon_doe">Dr. Jhon Doe</string>
+    <string name="no_person_image">No Person</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="general_image">General Image</string>
+    <string name="total_income_200_tk">Total Income: 200 Tk.</string>
+    <string name="message_user_image">Message User Image</string>
+    <string name="send_image">Send Image</string>
+    <string name="enter_message">Enter message</string>
+    <string name="prescription_image">Prescription Image</string>
+    <string name="cardiologist">Cardiologist</string>
+    <string name="add">ADD</string>
+    <string name="prescription">Prescription</string>
+
+    <string-array name="per_day_medicine">
+        <item>1 – 0 – 0</item>
+        <item>0 – 0 – 1</item>
+        <item>1 – 0 – 1</item>
+        <item>1 – 1 – 1</item>
+    </string-array>
+
+    <string-array name="home_service_time">
+        <item>Any</item>
+        <item>Day</item>
+        <item>Night</item>
+    </string-array>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1EC8C8</color>
+    <color name="colorPrimaryDark">#1EC8C8</color>
+    <color name="colorAccent">#2A86D3</color>
+
+    <color name="cLightCyan">#1EC8C8</color>
+    <color name="cLight_DK1Cyan">#1bb1b1</color>
+    <color name="cLightGray">#d7d7d7</color>
+    <color name="cBlack">#212121</color>
+</resources>

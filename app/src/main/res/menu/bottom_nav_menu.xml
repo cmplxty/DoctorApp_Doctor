@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/profileBMI"
+        android:title="@string/profile_cap"
+        android:icon="@drawable/profile_cyan"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/dashboardBMI"
+        android:title="@string/dashboard_cap"
+        android:icon="@drawable/dashboard_cyan"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/incomeBMI"
+        android:title="@string/income_cap"
+        android:icon="@drawable/income_cyan"
+        app:showAsAction="always|withText" />
+
+</menu>

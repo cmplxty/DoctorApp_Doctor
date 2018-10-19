@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="bottom"
+    android:padding="16dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:orientation="vertical"
+    android:layout_height="200dp">
+    
+    <ImageView
+        android:id="@+id/doctorHeaderPicIV"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/noperson"
+        android:contentDescription="@string/doctor_profile_image" />
+
+    <TextView
+        android:id="@+id/doctorHeaderNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:text="@string/doctor_name"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        />
+
+    <TextView
+        android:id="@+id/doctorHeaderEmailTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:text="@string/doctor_email"
+        android:textSize="14sp"
+        />
+
+</LinearLayout>

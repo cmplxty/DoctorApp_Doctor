@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/doctorsNamePTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Doctor's Name"
+                android:textColor="@android:color/black"
+                android:textSize="26sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/userDetailPLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/prescription_patient_info_bg"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/patientNamePTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="Name: Patient Name"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/standard_prescription_text_size"
+                    app:layout_constraintEnd_toStartOf="@+id/prescriptionDatePTV"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/prescriptionDatePTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="Date: 24-03-2018"
+                    android:textAlignment="textEnd"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/standard_prescription_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/patientNamePTV"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/patientPhonePTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="Phone: +8800000000"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/standard_prescription_text_size"
+                    app:layout_constraintEnd_toStartOf="@+id/patientAgePTV"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/patientAgePTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="Age: 33"
+                    android:textAlignment="textEnd"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/standard_prescription_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/patientPhonePTV"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/patientAddressPTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:text="Address: Bla Bla Bla Bla Bla Bla Bla "
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/standard_prescription_text_size" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Medicines"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userDetailPLL" />
+
+        <ImageButton
+            android:id="@+id/addMedicinePIB"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/add"
+            android:onClick="onAddMedicine"
+            android:src="@drawable/add_cyan"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/medicineListRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="40dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@+id/closePBTN"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/closePBTN"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/prescription_btn_left"
+            android:onClick="onCancelPrescription"
+            android:text="Close"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sendPBTN"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/sendPBTN"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/prescription_btn_right"
+            android:onClick="onSendPrescription"
+            android:text="Send"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/closePBTN" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/newMedicineNSV"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/prescription_add_new_medicine_bottom_sheet_bg"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:weightSum="5">
+
+            <EditText
+                android:id="@+id/medicineNameET"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/medicine_et_bg"
+                android:hint="E.G. Napa"
+                android:inputType="text"
+                android:lines="1"
+                android:minWidth="120dp" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:minWidth="70dp">
+
+                <Spinner
+                    android:id="@+id/medicineDoseSP"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:dropDownWidth="wrap_content"
+                    android:entries="@array/per_day_medicine"
+                    android:padding="5dp"
+                    android:spinnerMode="dropdown" />
+
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/medicineQuantityET"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:background="@drawable/medicine_et_bg"
+                android:hint="E.G. 10"
+                android:inputType="text"
+                android:minWidth="80dp"
+                android:textAlignment="center" />
+
+            <ImageButton
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:onClick="onAddOrUpdateClick"
+                android:background="@android:color/transparent"
+                android:src="@drawable/add_cyan" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

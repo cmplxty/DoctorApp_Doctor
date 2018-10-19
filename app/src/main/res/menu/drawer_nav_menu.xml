@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/dashboardDMI"
+            android:icon="@drawable/dashboard_cyan"
+            android:title="@string/dashboard" />
+
+        <item
+            android:id="@+id/profileDMI"
+            android:icon="@drawable/profile_cyan"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/incomeDMI"
+            android:icon="@drawable/income_cyan"
+            android:title="@string/income" />
+
+        <item
+            android:id="@+id/appointmentsDMI"
+            android:icon="@drawable/appoint_cyan"
+            android:title="@string/appointments" />
+
+        <item
+            android:id="@+id/messagesDMI"
+            android:icon="@drawable/message_cyan"
+            android:title="@string/message" />
+
+        <item
+            android:id="@+id/prescriptionPatientDMI"
+            android:icon="@drawable/prescription_cyan"
+            android:title="@string/prescription" />
+
+        <item
+            android:id="@+id/homeServiceDMI"
+            android:icon="@drawable/home_cyan"
+            android:title="@string/home_service" />
+
+        <item
+            android:icon="@drawable/video_cyan"
+            android:title="@string/audio_call" />
+
+        <item
+            android:icon="@drawable/audio_cyan"
+            android:title="@string/audio_call" />
+    </group>
+
+    <item android:title="@string/others">
+        <menu>
+            <item
+                android:icon="@drawable/blog_cyan"
+                android:title="@string/blog"
+                />
+
+            <item
+                android:icon="@drawable/receptionist_cyan"
+                android:title="@string/receptionist"
+                />
+        </menu>
+    </item>
+
+</menu>
