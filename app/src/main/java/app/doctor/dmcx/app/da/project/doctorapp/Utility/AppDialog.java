@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.HomeServiceController;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
 
 public class AppDialog {
@@ -26,7 +25,7 @@ public class AppDialog {
             dialog.show();
 
             // View Elements
-            final Button cancelHSBTN = view.findViewById(R.id.cancelHSBTN);
+            final Button cancelHSBTN = view.findViewById(R.id.cancelHSIB);
             final Button registerHSBTN = view.findViewById(R.id.registerHSBTN);
 
             final EditText doctorNameDHSET = view.findViewById(R.id.doctorNameDHSET);

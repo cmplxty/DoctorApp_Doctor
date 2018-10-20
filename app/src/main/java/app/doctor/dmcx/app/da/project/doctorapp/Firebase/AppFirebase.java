@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
+import app.doctor.dmcx.app.da.project.doctorapp.Model.HomeService;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Message;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Patient;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.MessageUser;
@@ -521,8 +522,103 @@ public class AppFirebase {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        mReference.child(AFModel.database)
+                                .child(AFModel.home_service)
+                                .child(getCurrentUser().getUid())
+                                .removeValue();
+
+                        mReference.child(AFModel.database)
+                                .child(AFModel.home_service)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                snapshot.child(getCurrentUser().getUid()).getRef().removeValue();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
                          callback.onCallback(task.isSuccessful(), null);
                     }
                 });
     }
+
+    /*
+    * Load Home Service Requests
+    * */
+    public void loadHomeServiceRequests(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.home_service)
+                .child(getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            List<HomeService> homeServices = new ArrayList<>();
+
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                HomeService homeService = snapshot.getValue(HomeService.class);
+                                if (homeService != null) {
+                                    homeService.setPatient_id(snapshot.getKey());
+                                    homeServices.add(homeService);
+                                }
+                            }
+
+                            if (homeServices.size() > 0) {
+                                callback.onCallback(true, homeServices);
+                            } else {
+                                callback.onCallback(false, null);
+                            }
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /*
+    * Cancel Home Service Request
+    * */
+    public void cancelHomeServiceRequest(final String patientId, final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.home_service)
+                .child(getCurrentUser().getUid())
+                .child(patientId).removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            mReference.child(AFModel.database)
+                                    .child(AFModel.home_service)
+                                    .child(patientId)
+                                    .child(getCurrentUser().getUid()).removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            callback.onCallback(task.isSuccessful(), null);
+                                        }
+                                    });
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+                });
+    }
+
+
+
+
 }

@@ -15,4 +15,5 @@ public class ErrorText {
     public static final String ErrorNoPrescriptionFound = "Error! No Prescription Found.";
     public static final String ErrorNoDataFound = "Error! No Data Found.";
     public static final String NoIdSpecified = "Error! No Patient Id Specified";
+    public static final String RequestCancelFailed = "Error! Failed to cancel request.";
 }

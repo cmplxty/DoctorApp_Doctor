@@ -107,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/doctorLocationDHSET" />
 
     <Button
-        android:id="@+id/cancelHSBTN"
+        android:id="@+id/cancelHSIB"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -133,9 +133,9 @@
         android:text="Register"
         android:textColor="@android:color/white"
         style="?android:attr/borderlessButtonStyle"
-        app:layout_constraintBottom_toBottomOf="@+id/cancelHSBTN"
+        app:layout_constraintBottom_toBottomOf="@+id/cancelHSIB"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cancelHSBTN"
-        app:layout_constraintTop_toTopOf="@+id/cancelHSBTN" />
+        app:layout_constraintStart_toEndOf="@+id/cancelHSIB"
+        app:layout_constraintTop_toTopOf="@+id/cancelHSIB" />
 
 </android.support.constraint.ConstraintLayout>

@@ -22,4 +22,7 @@ public class ValidationText {
     public static final String InformationRequired = "Every informations are required.";
     public static final String Unregistered = "Unregistered";
     public static final String UnregisterFailed = "Unregister Failed";
+    public static final String RequestCanceled = "Request Canceled.";
+    public static final String PermissionNeeded = "Permission Needed!";
+    public static final String PermissionNeededForDirectCall = "Permission Needed to Call Patient!";
 }

@@ -1,5 +1,7 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Activities;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.squareup.picasso.Picasso;
 
+import app.doctor.dmcx.app.da.project.doctorapp.Adapter.HomeServiceRecyclerViewAdapter;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.ProfileController;
@@ -31,9 +34,11 @@ import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.IncomeFragment;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.MessageUserListFragment;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.PrescriptionPatientListFragment;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.ProfileFragment;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallPatient;
 import app.doctor.dmcx.app.da.project.doctorapp.LocalDatabase.LocalDB;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
+import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
 import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
 

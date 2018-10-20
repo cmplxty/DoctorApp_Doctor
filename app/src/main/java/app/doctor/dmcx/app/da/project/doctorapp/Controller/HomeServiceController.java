@@ -69,4 +69,30 @@ public class HomeServiceController {
             }
         });
     }
+
+    public static void LoadHomeServiceRequests(final IAction action) {
+        Vars.appFirebase.loadHomeServiceRequests(new ICallback() {
+            @Override
+            public void onCallback(boolean isSuccessful, Object object) {
+                if (isSuccessful) {
+                    action.onCompleteAction(object);
+                } else {
+                    action.onCompleteAction(null);
+                }
+            }
+        });
+    }
+
+    public static void CancelHomeServiceRequest(String patientId) {
+        Vars.appFirebase.cancelHomeServiceRequest(patientId, new ICallback() {
+            @Override
+            public void onCallback(boolean isSuccessful, Object object) {
+                if (isSuccessful) {
+                    Toast.makeText(RefActivity.refACActivity.get(), ValidationText.RequestCanceled, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RefActivity.refACActivity.get(), ErrorText.RequestCancelFailed, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }

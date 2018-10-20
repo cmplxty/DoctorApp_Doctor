@@ -72,7 +72,7 @@
         android:id="@+id/homeServiceRequestsHSRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/layout_rv_single_home_service"
+        tools:listitem="@layout/layout_rv_single_home_service_request"
         android:paddingTop="10dp"
         android:paddingBottom="50dp"
         android:clipToPadding="false"
@@ -82,5 +82,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <com.victor.loading.rotate.RotateLoading
+        android:id="@+id/mLoadingRL"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/informationHSTV"
+        app:loading_color="@color/colorPrimaryDark"
+        app:loading_width="5dp" />
 
 </android.support.constraint.ConstraintLayout>
