@@ -69,4 +69,9 @@
         <item>Day</item>
         <item>Night</item>
     </string-array>
+
+    <string-array name="am_pm">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
 </resources>

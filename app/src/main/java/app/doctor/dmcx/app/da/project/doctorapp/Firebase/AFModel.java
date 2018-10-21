@@ -11,6 +11,8 @@ public class AFModel {
     public static final String message_user = "message_user";
     public static final String home_service_doctor = "home_service_doctor";
     public static final String home_service = "home_service";
+    public static final String appointment_doctor = "appointment_doctor";
+    public static final String appointment = "appointment";
 
     public static final String name = "name";
     public static final String email = "email";
@@ -31,6 +33,8 @@ public class AFModel {
     public static final String location = "location";
     public static final String specialist = "specialist";
     public static final String time = "time";
+    public static final String appointments = "appointments";
+    public static final String clinic = "clinic";
 
     public static final String deflt = "defaultx01";
 

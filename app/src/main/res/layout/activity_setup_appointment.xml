@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Setup Appointment"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/doctorNameAPTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/appointment_et_bg"
+        android:hint="Name"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/doctorPhoneAPTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/doctorPhoneAPTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/appointment_et_bg"
+        android:hint="Phone"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/doctorNameAPTV"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/doctorSpecialistAPTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/appointment_et_bg"
+        android:hint="Specialist"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorPhoneAPTV" />
+
+    <EditText
+        android:id="@+id/doctorClinicLocationAPTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/appointment_et_bg"
+        android:hint="Clinic Location"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorSpecialistAPTV" />
+
+    <LinearLayout
+        android:id="@+id/daysLL"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:weightSum="7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorClinicLocationAPTV">
+
+        <TextView
+            android:id="@+id/satTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="SAT"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/sunTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="SUN"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/monTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="MON"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tueTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="TUE"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/wedTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="WED"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/thuTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="THU"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/friTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="FRI"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/daysAPET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/square_bg"
+        android:enabled="false"
+        android:hint="Choose Days"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysLL" />
+
+    <EditText
+        android:id="@+id/timeFromAPET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:enabled="true"
+        android:hint="From Time"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toStartOf="@+id/fromAmPmAPSP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysAPET" />
+
+    <Spinner
+        android:id="@+id/fromAmPmAPSP"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:entries="@array/am_pm"
+        android:spinnerMode="dropdown"
+        android:dropDownWidth="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/timeFromAPET"
+        app:layout_constraintEnd_toStartOf="@+id/timeToAPET"
+        app:layout_constraintStart_toEndOf="@+id/timeFromAPET"
+        app:layout_constraintTop_toTopOf="@+id/timeFromAPET" />
+
+    <EditText
+        android:id="@+id/timeToAPET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        android:hint="To Time"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/fromAmPmAPSP"
+        app:layout_constraintEnd_toStartOf="@+id/toAmPmAPSP"
+        app:layout_constraintStart_toEndOf="@+id/fromAmPmAPSP"
+        app:layout_constraintTop_toTopOf="@+id/fromAmPmAPSP" />
+
+    <Spinner
+        android:id="@+id/toAmPmAPSP"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="4dp"
+        android:entries="@array/am_pm"
+        android:spinnerMode="dropdown"
+        android:dropDownWidth="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/timeToAPET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timeToAPET"
+        app:layout_constraintTop_toTopOf="@+id/timeToAPET" />
+
+    <TextView
+        android:id="@+id/apptTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Appointments"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeFromAPET" />
+
+    <ImageButton
+        android:id="@+id/addAppointmentIB"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_cyan_small"
+        app:layout_constraintBottom_toBottomOf="@+id/apptTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/apptTV" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/appointmentDayTimeListAPRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/cancelAPBTN"
+        tools:listitem="@layout/layout_rv_single_appointment_doctor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apptTV" />
+
+    <Button
+        android:id="@+id/completeAPBTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/appointment_btn_bg"
+        android:text="Complete"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancelAPBTN" />
+
+    <Button
+        android:id="@+id/cancelAPBTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/appointment_btn_bg"
+        android:text="Cancel"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/completeAPBTN"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

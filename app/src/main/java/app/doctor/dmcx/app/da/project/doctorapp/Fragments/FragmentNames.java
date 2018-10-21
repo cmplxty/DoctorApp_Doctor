@@ -9,4 +9,6 @@ public class FragmentNames {
     public static final String PrescriptionPatient = "Fragment Prescription Patient";
     public static final String Prescription = "Fragment Prescription";
     public static final String HomeService = "Fragment Home Service";
+    public static final String Appointment = "Fragment APRequest";
+
 }

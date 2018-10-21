@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Parcelable;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.Common.PrescriptionActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Appointment.SetupAppointmentActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Messenger.PrescriptionActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Activities.Messenger.ViewImageActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Activities.Messenger.MessageActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
@@ -54,6 +55,15 @@ public class ActivityTrigger {
         Activity activity = RefActivity.refACActivity.get();
         Intent intent = new Intent(activity, PrescriptionActivity.class);
         intent.putExtra(Vars.Connector.PERSCRIPTION_ACTIVITY_DATA, parcelable);
+        activity.startActivity(intent);
+    }
+
+    /*
+     * Setup APRequest Activity
+     * */
+    public static void SetupAppointmentActivity() {
+        Activity activity = RefActivity.refACActivity.get();
+        Intent intent = new Intent(activity, SetupAppointmentActivity.class);
         activity.startActivity(intent);
     }
 

@@ -25,4 +25,10 @@ public class ValidationText {
     public static final String RequestCanceled = "Request Canceled.";
     public static final String PermissionNeeded = "Permission Needed!";
     public static final String PermissionNeededForDirectCall = "Permission Needed to Call Patient!";
+    public static final String SetupFailed = "Setup Failed!";
+    public static final String ApptSetupSuccess = "You can now receive appoinments.";
+    public static final String PleaseFillDaysAndTime = "Please fill days and time.";
+    public static final String Removed = "Removed!";
+    public static final String RemoveFailed = "Failed to remove your account.";
+    public static final String PleaseFillAllTheFields = "Please fill all the fields.";
 }

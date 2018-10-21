@@ -1,4 +1,4 @@
-package app.doctor.dmcx.app.da.project.doctorapp.Activities.Common;
+package app.doctor.dmcx.app.da.project.doctorapp.Activities.Messenger;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

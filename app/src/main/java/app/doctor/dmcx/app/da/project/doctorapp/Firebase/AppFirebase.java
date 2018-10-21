@@ -32,6 +32,7 @@ import app.doctor.dmcx.app.da.project.doctorapp.Model.Prescription;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.PrescriptionPatient;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ErrorText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
+import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
 public class AppFirebase {
 
@@ -618,7 +619,58 @@ public class AppFirebase {
                 });
     }
 
+    /*
+    * Setup Appointment Doctor
+    * */
+    public void setupAppointmentDoctor(Map<String, Object> map, final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.appointment_doctor)
+                .child(getCurrentUser().getUid())
+                .updateChildren(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        callback.onCallback(task.isSuccessful(), null);
+                    }
+                });
+    }
 
+    /*
+    * Check Appointment Doctor
+    * */
+    public void checkAppointmentDoctor(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.appointment_doctor)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(getCurrentUser().getUid())) {
+                            callback.onCallback(true, null);
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                    }
+                });
+    }
+
+    /*
+    * Remove Appointment Doctor
+    * */
+    public void removeAppointmentDoctor(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.appointment_doctor)
+                .child(getCurrentUser().getUid())
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        callback.onCallback(task.isSuccessful(), null);
+                    }
+                });
+    }
 }

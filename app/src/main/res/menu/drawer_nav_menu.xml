@@ -20,37 +20,42 @@
             android:icon="@drawable/income_cyan"
             android:title="@string/income" />
 
-        <item
-            android:id="@+id/appointmentsDMI"
-            android:icon="@drawable/appoint_cyan"
-            android:title="@string/appointments" />
-
-        <item
-            android:id="@+id/messagesDMI"
-            android:icon="@drawable/message_cyan"
-            android:title="@string/message" />
-
-        <item
-            android:id="@+id/prescriptionPatientDMI"
-            android:icon="@drawable/prescription_cyan"
-            android:title="@string/prescription" />
-
-        <item
-            android:id="@+id/homeServiceDMI"
-            android:icon="@drawable/home_cyan"
-            android:title="@string/home_service" />
-
-        <item
-            android:icon="@drawable/video_cyan"
-            android:title="@string/audio_call" />
-
-        <item
-            android:icon="@drawable/audio_cyan"
-            android:title="@string/audio_call" />
     </group>
 
-    <item android:title="@string/others">
+    <item android:title="Service">
         <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/appointmentDMI"
+                    android:icon="@drawable/appoint_cyan"
+                    android:title="@string/appointments" />
+
+                <item
+                    android:id="@+id/messagesDMI"
+                    android:icon="@drawable/message_cyan"
+                    android:title="@string/message" />
+
+                <item
+                    android:id="@+id/homeServiceDMI"
+                    android:icon="@drawable/home_cyan"
+                    android:title="@string/home_service" />
+
+                <item
+                    android:icon="@drawable/audio_cyan"
+                    android:title="@string/audio_call" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="More">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/prescriptionPatientDMI"
+                    android:icon="@drawable/prescription_cyan"
+                    android:title="@string/prescription" />
+            </group>
+
             <item
                 android:icon="@drawable/blog_cyan"
                 android:title="@string/blog"
