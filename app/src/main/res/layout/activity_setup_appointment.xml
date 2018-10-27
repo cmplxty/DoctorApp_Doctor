@@ -53,10 +53,27 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/doctorSpecialistAPTV"
-        android:layout_width="match_parent"
+        android:id="@+id/doctorApptPasswordAPTV"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/appointment_et_bg"
+        android:hint="Recp. Passcode"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/doctorSpecialistAPTV"
+        app:layout_constraintTop_toBottomOf="@+id/doctorPhoneAPTV" />
+
+    <EditText
+        android:id="@+id/doctorSpecialistAPTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/appointment_et_bg"
@@ -65,7 +82,7 @@
         android:padding="12dp"
         android:textAlignment="center"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/doctorApptPasswordAPTV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorPhoneAPTV" />
 
@@ -84,7 +101,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doctorSpecialistAPTV" />
+        app:layout_constraintTop_toBottomOf="@+id/doctorApptPasswordAPTV" />
 
     <LinearLayout
         android:id="@+id/daysLL"

@@ -11,8 +11,8 @@ public class ValidationText {
     public static final String UserNotExists = "User not exists.";
     public static final String AuthenticationFailed = "Authentication Failed!";
 
-    public static final String MessageSent = "MessageUserList Sent.";
-    public static final String MessageNotSent = "MessageUserList Not Sent.";
+    public static final String MessageSent = "Message Sent.";
+    public static final String MessageNotSent = "Message Not Sent.";
     public static final String NoMessagesFound = "No messages found.";
 
     public static final String PrescriptionSent = "Prescription Sent.";
@@ -31,4 +31,8 @@ public class ValidationText {
     public static final String Removed = "Removed!";
     public static final String RemoveFailed = "Failed to remove your account.";
     public static final String PleaseFillAllTheFields = "Please fill all the fields.";
+    public static final String RequestAccepted = "Request Accepted.";
+    public static final String AlreadyRequestAccepted = "Already request accepted.";
+    public static final String AppointmentDeleted = "Appointment deleted.";
+    public static final String UpdateSuccessful = "Update Successful.";
 }

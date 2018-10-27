@@ -18,23 +18,12 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
-                                      <entry key="clipArt">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="paddingPercent" value="35" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
                                       <entry key="clipartAsset">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/H:/Android/Android%20Studio%203.1.1/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_close_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/H:/Android/Android%20Studio%203.1.1/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_cancel_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -45,7 +34,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="E:\Downloads\Pictures\prescription.png" />
-                                      <entry key="outputName" value="cross_cyan_small" />
+                                      <entry key="outputName" value="circle_cross_cyan" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="1ec8c8" />
                                     </map>

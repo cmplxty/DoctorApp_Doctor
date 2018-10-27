@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/doctorProfilePicIV"
+        android:id="@+id/doctorProfilePicCIV"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
@@ -39,7 +39,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doctorProfilePicIV" />
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfilePicCIV" />
 
     <TextView
         android:id="@+id/doctorWelcomeNoteTV"
@@ -96,29 +96,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/doctorPaymentIV"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/edit_profile"
-                    android:contentDescription="@string/payment_image"
-                    android:padding="5dp"
-                    android:src="@drawable/card_black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/doctorEditProfileIV" />
-
                 <!-- Upper -->
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/detailCL"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginTop="48dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.496"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/doctorEditProfileIV">
 
                     <ImageView
                         android:id="@+id/mailIV"
@@ -143,6 +129,7 @@
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/mailIV"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/mailIV"
                         app:layout_constraintTop_toTopOf="@+id/mailIV" />
 
@@ -159,7 +146,7 @@
 
                     <TextView
                         android:id="@+id/doctorPhoneTV"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
@@ -169,6 +156,7 @@
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/phoneIV"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/phoneIV"
                         app:layout_constraintTop_toTopOf="@+id/phoneIV" />
 
@@ -185,7 +173,7 @@
 
                     <TextView
                         android:id="@+id/doctorChamberTV"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginEnd="8dp"
@@ -197,6 +185,7 @@
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/chemberIV"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/chemberIV"
                         app:layout_constraintTop_toTopOf="@+id/chemberIV" />
 
@@ -213,7 +202,7 @@
 
                     <TextView
                         android:id="@+id/doctorSpecialistTV"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
@@ -223,6 +212,7 @@
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/specialistIV"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/specialistIV"
                         app:layout_constraintTop_toTopOf="@+id/specialistIV" />
 
@@ -241,7 +231,7 @@
 
                     <TextView
                         android:id="@+id/doctorCountryTV"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
@@ -251,6 +241,7 @@
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/cityIV"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/cityIV"
                         app:layout_constraintTop_toTopOf="@+id/cityIV" />
 

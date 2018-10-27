@@ -1,6 +1,5 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,15 +18,18 @@ import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.AuthController;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.ProfileController;
+import app.doctor.dmcx.app.da.project.doctorapp.Fragments.AppFragmentManager;
+import app.doctor.dmcx.app.da.project.doctorapp.Fragments.FragmentNames;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
+import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ProfileFragment extends Fragment {
 
     // Variables
-    private ImageView doctorProfilePicIV;
-    private ImageView doctorPaymentIV;
+    private CircleImageView doctorProfilePicCIV;
     private ImageView doctorEditProfileIV;
     private TextView doctorNameTV;
     private TextView doctorEmailTV;
@@ -36,12 +38,13 @@ public class ProfileFragment extends Fragment {
     private TextView doctorChamberTV;
     private TextView doctorCountryTV;
     private Button signOutPBTN;
+
+    private Doctor doctor;
     // Variables
 
     // Methods
     private void init(View view) {
-        doctorProfilePicIV = view.findViewById(R.id.doctorProfilePicIV);
-        doctorPaymentIV = view.findViewById(R.id.doctorPaymentIV);
+        doctorProfilePicCIV = view.findViewById(R.id.doctorProfilePicCIV);
         doctorEditProfileIV = view.findViewById(R.id.doctorEditProfileIV);
         doctorNameTV = view.findViewById(R.id.doctorNameTV);
         doctorEmailTV = view.findViewById(R.id.doctorEmailTV);
@@ -56,14 +59,9 @@ public class ProfileFragment extends Fragment {
         doctorEditProfileIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-
-        doctorPaymentIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Vars.Connector.PROFILE_EDIT_FRAGMENT_DATA, doctor);
+                AppFragmentManager.replace(RefActivity.refACActivity.get(), AppFragmentManager.homeFragmentContainer, new ProfileEditFragment(), FragmentNames.ProfileEdit, bundle);
             }
         });
 
@@ -80,10 +78,10 @@ public class ProfileFragment extends Fragment {
         ProfileController.LoadLocalProfile(new IAction() {
             @Override
             public void onCompleteAction(Object object) {
-                Doctor doctor = (Doctor) object;
+                doctor = (Doctor) object;
 
                 if (doctor != null) {
-                    Picasso.with(RefActivity.refACActivity.get()).load(doctor.getImage_link()).placeholder(R.drawable.noprofilepic).into(doctorProfilePicIV);
+                    Picasso.with(RefActivity.refACActivity.get()).load(doctor.getImage_link()).placeholder(R.drawable.noprofilepic).into(doctorProfilePicCIV);
 
                     doctorNameTV.setText(doctor.getName());
                     doctorEmailTV.setText(doctor.getEmail());

@@ -27,4 +27,8 @@ public class AppFragmentManager {
         Vars.currentFragment = fragment;
     }
 
+    public static void replace (AppCompatActivity appCompatActivity, int container, Fragment fragment, String tag, Bundle bundle) {
+        fragment.setArguments(bundle);
+        replace(appCompatActivity, container, fragment, tag);
+    }
 }

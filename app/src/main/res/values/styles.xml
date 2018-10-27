@@ -6,12 +6,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.CropImage" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="AppTheme.Fullscreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="AppTheme.ViewImage" parent="AppTheme.Fullscreen">
         <item name="colorPrimaryDark">@android:color/black</item>
+    </style>
+
+    <style name="AppTheme.ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorAccent">@color/cLight_DK1Cyan</item>
     </style>
 
 </resources>

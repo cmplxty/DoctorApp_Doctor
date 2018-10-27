@@ -1,6 +1,8 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Activities;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.squareup.picasso.Picasso;
 
+import java.lang.ref.WeakReference;
+
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.ProfileController;
@@ -32,22 +36,69 @@ import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.IncomeFragment;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.MessageUserListFragment;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.PrescriptionPatientListFragment;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.ProfileFragment;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.INavHeader;
 import app.doctor.dmcx.app.da.project.doctorapp.LocalDatabase.LocalDB;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
 import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements INavHeader {
 
     // Variables
-    public static HomeActivity instance;
+    public static WeakReference<HomeActivity> instance;
+
+    private ImageView navHeaderPic;
+    private TextView navHeaderName;
+    private TextView navHeaderEmail;
 
     private DrawerLayout drawer_layout;
     private Toolbar toolbar;
     private NavigationView navigationView;
     private BottomNavigationViewEx mainBottomNavViewEx;
+    private NavBarHandler navBarHandler = new NavBarHandler();
     // Variables
+
+    // Class
+    private static class NavBarHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    }
+
+    private class NavBarRunnable implements Runnable {
+        private MenuItem item;
+
+        NavBarRunnable(MenuItem item) {
+            this.item = item;
+        }
+
+        @Override
+        public void run() {
+            switch (item.getItemId()) {
+                case R.id.dashboardDMI:
+                    loadNavFragment(getString(R.string.dashboard), new DashboardFragment(), FragmentNames.Dashboard);
+                    break;
+                case R.id.profileDMI:
+                    loadNavFragment(getString(R.string.profile), new ProfileFragment(), FragmentNames.Profile);
+                    break;
+                case R.id.messagesDMI:
+                    loadNavFragment(getString(R.string.message), new MessageUserListFragment(), FragmentNames.MessageUserList);
+                    break;
+                case R.id.prescriptionPatientDMI:
+                    loadNavFragment(getString(R.string.prescription), new PrescriptionPatientListFragment(), FragmentNames.PrescriptionPatient);
+                    break;
+                case R.id.homeServiceDMI:
+                    loadNavFragment(getString(R.string.home_service), new HomeServiceFragment(), FragmentNames.HomeService);
+                    break;
+                case R.id.appointmentDMI:
+                    loadNavFragment(getString(R.string.appointments), new AppointmentFragment(), FragmentNames.Appointment);
+                    break;
+            }
+        }
+    }
+    // Class
 
     // Methods
     private void init() {
@@ -87,9 +138,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private void side_nav_header() {
         View nav_header = navigationView.getHeaderView(0);
-        final ImageView pic = nav_header.findViewById(R.id.doctorHeaderPicIV);
-        final TextView name = nav_header.findViewById(R.id.doctorHeaderNameTV);
-        final TextView email = nav_header.findViewById(R.id.doctorHeaderEmailTV);
+        navHeaderPic = nav_header.findViewById(R.id.doctorHeaderPicIV);
+        navHeaderName = nav_header.findViewById(R.id.doctorHeaderNameTV);
+        navHeaderEmail = nav_header.findViewById(R.id.doctorHeaderEmailTV);
 
         ProfileController.LoadLocalProfile(new IAction() {
             @Override
@@ -97,9 +148,7 @@ public class HomeActivity extends AppCompatActivity {
                 Doctor doctor = (Doctor) object;
 
                 if (doctor != null) {
-                    Picasso.with(RefActivity.refACActivity.get()).load(doctor.getImage_link()).placeholder(R.drawable.noperson).into(pic);
-                    name.setText(doctor.getName());
-                    email.setText(doctor.getEmail());
+                    onNavHeaderUpdate(doctor);
                 }
             }
         });
@@ -109,27 +158,10 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()) {
-                    case R.id.dashboardDMI:
-                        loadNavFragment(getString(R.string.dashboard), new DashboardFragment(), FragmentNames.Dashboard);
-                        break;
-                    case R.id.messagesDMI:
-                        loadNavFragment(getString(R.string.message), new MessageUserListFragment(), FragmentNames.MessageUserList);
-                        break;
-                    case R.id.prescriptionPatientDMI:
-                        loadNavFragment(getString(R.string.prescription), new PrescriptionPatientListFragment(), FragmentNames.PrescriptionPatient);
-                        break;
-                    case R.id.homeServiceDMI:
-                        loadNavFragment(getString(R.string.home_service), new HomeServiceFragment(), FragmentNames.HomeService);
-                        break;
-                    case R.id.appointmentDMI:
-                        loadNavFragment(getString(R.string.appointments), new AppointmentFragment(), FragmentNames.Appointment);
-                        break;
-                }
-
                 navigationView.setCheckedItem(item.getItemId());
                 drawer_layout.closeDrawer(GravityCompat.START);
+
+                navBarHandler.postDelayed(new NavBarRunnable(item), 400);
                 return true;
             }
         });
@@ -185,7 +217,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         RefActivity.updateACActivity(this);
-        instance = (HomeActivity) RefActivity.refACActivity.get();
+        instance = new WeakReference<>(this);
 
         init();
         loadToolbar();
@@ -198,15 +230,26 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onNavHeaderUpdate(Doctor doctor) {
+        Picasso.with(RefActivity.refACActivity.get())
+                .load(doctor.getImage_link())
+                .placeholder(R.drawable.noperson).into(navHeaderPic);
+
+        navHeaderName.setText(doctor.getName());
+        navHeaderEmail.setText(doctor.getEmail());
+    }
+
+    @Override
     public void onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START);
-        } else if (Vars.currentFragment.getTag().equals(FragmentNames.Prescription)) {
+        } else if (Vars.currentFragment != null && Vars.currentFragment.getTag().equals(FragmentNames.Prescription)) {
             bp_LoadPatientPrescription();
-        } else if (!Vars.currentFragment.getTag().equals(FragmentNames.Dashboard)) {
+        } else if (Vars.currentFragment != null && Vars.currentFragment.getTag().equals(FragmentNames.ProfileEdit)) {
+            loadBottomNavFragment(getString(R.string.profile), new ProfileFragment(), FragmentNames.Profile, R.id.profileDMI);
+        } else if (Vars.currentFragment != null && !Vars.currentFragment.getTag().equals(FragmentNames.Dashboard)) {
             onStartMethod();
         } else
             super.onBackPressed();
     }
-
 }

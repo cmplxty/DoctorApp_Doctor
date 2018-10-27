@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
@@ -29,16 +30,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/patientApptAPTV"
+            android:id="@+id/patientDateAPTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="2dp"
-            android:text="Appointment: 22-03-2018 - 6:30 PM"
+            android:layout_marginTop="4dp"
+            android:text="Date:"
             android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/cancelApptIV"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/acceptApptIV"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/patientNameAPTV" />
 
@@ -49,12 +49,13 @@
             android:layout_marginBottom="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
             android:text="Status: Will Meet"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cancelApptIV"
+            app:layout_constraintEnd_toStartOf="@+id/acceptApptIV"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/patientApptAPTV" />
+            app:layout_constraintTop_toBottomOf="@+id/patientDateAPTV" />
 
         <ImageView
             android:id="@+id/cancelApptIV"
@@ -62,10 +63,22 @@
             android:layout_height="25dp"
             android:layout_marginEnd="12dp"
             android:contentDescription="@string/cancel_image"
-            android:src="@drawable/cancel_cyan"
+            android:src="@drawable/cross_cyan"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/phoneApptIV"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneApptIV" />
+
+        <ImageView
+            android:id="@+id/acceptApptIV"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/cancel_image"
+            android:src="@drawable/tick_cyan"
+            app:layout_constraintBottom_toBottomOf="@+id/cancelApptIV"
+            app:layout_constraintEnd_toStartOf="@+id/cancelApptIV"
+            app:layout_constraintTop_toTopOf="@+id/cancelApptIV"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/phoneApptIV"
@@ -74,7 +87,7 @@
             android:layout_marginEnd="12dp"
             android:contentDescription="@string/cancel_image"
             android:src="@drawable/phone_cyan_dk"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cancelApptIV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

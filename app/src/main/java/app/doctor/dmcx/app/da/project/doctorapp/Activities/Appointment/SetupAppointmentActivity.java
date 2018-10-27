@@ -1,6 +1,5 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Activities.Appointment;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +40,7 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
     private TextView doctorClinicLocationAPTV;
     private EditText timeToAPET;
     private EditText timeFromAPET;
+    private EditText doctorApptPasswordAPTV;
     private Spinner toAmPmAPSP;
     private Spinner fromAmPmAPSP;
     private EditText daysAPET;
@@ -65,8 +65,9 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
     private void init() {
         doctorNameAPTV = findViewById(R.id.doctorNameAPTV);
         doctorPhoneAPTV = findViewById(R.id.doctorPhoneAPTV);
-        doctorSpecialistAPTV = findViewById(R.id.doctorSpecialistAPTV);
+        doctorSpecialistAPTV = findViewById(R.id.doctorApptPasswordAPTV);
         doctorClinicLocationAPTV = findViewById(R.id.doctorClinicLocationAPTV);
+        doctorApptPasswordAPTV = findViewById(R.id.doctorApptPasswordAPTV);
         timeFromAPET = findViewById(R.id.timeFromAPET);
         timeToAPET = findViewById(R.id.timeToAPET);
         toAmPmAPSP = findViewById(R.id.toAmPmAPSP);
@@ -172,14 +173,15 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
         final String phone = doctorPhoneAPTV.getText().toString();
         final String specialist = doctorSpecialistAPTV.getText().toString();
         final String clinic = doctorClinicLocationAPTV.getText().toString();
+        final String passcode = doctorApptPasswordAPTV.getText().toString();
         final String appoinments = gson.toJson(appointments);
 
-        if (name.equals("") || phone.equals("") || specialist.equals("") || clinic.equals("") || appoinments.equals("[]")) {
+        if (name.equals("") || phone.equals("") || specialist.equals("") || clinic.equals("") || passcode.equals("") || appoinments.equals("[]")) {
             Toast.makeText(RefActivity.refACActivity.get(), ValidationText.PleaseFillAllTheFields, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        AppointmentController.SetupAppointmentDoctor(new APDoctor(name, specialist, phone, clinic, appoinments), new IAction() {
+        AppointmentController.SetupAppointmentDoctor(passcode, new APDoctor(name, specialist, phone, clinic, appoinments), new IAction() {
             @Override
             public void onCompleteAction(Object object) {
                 if ((boolean) object) {
@@ -229,7 +231,7 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
 
     @Override
     public void onBackPressed() {
-        RefActivity.updateACActivity(HomeActivity.instance);
+        RefActivity.updateACActivity(HomeActivity.instance.get());
         super.onBackPressed();
     }
 

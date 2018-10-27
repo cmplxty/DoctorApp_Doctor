@@ -13,6 +13,7 @@ public class AFModel {
     public static final String home_service = "home_service";
     public static final String appointment_doctor = "appointment_doctor";
     public static final String appointment = "appointment";
+    public static final String profile_image = "profile_image";
 
     public static final String name = "name";
     public static final String email = "email";
@@ -35,8 +36,19 @@ public class AFModel {
     public static final String time = "time";
     public static final String appointments = "appointments";
     public static final String clinic = "clinic";
+    public static final String request = "request";
+    public static final String accept = "accept";
+    public static final String cancel = "cancel";
+    public static final String about = "about";
+    public static final String chamber = "chamber";
+    public static final String city = "city";
+    public static final String degree = "degree";
+    public static final String hospital = "hospital";
+    public static final String image_link = "image_link";
+    public static final String registration = "registration";
 
     public static final String deflt = "defaultx01";
+    public static final String passcode = "passcode";
 
     // External
     public static class prescription_variables {
@@ -50,5 +62,17 @@ public class AFModel {
         public static final String date = "date";
         public static final String timestamp = "timestamp";
         public static final String medicines = "medicines";
+    }
+
+    public static class ap_variables {
+        public static final String doctor_name = "doctor_name";
+        public static final String doctor_clinic = "doctor_clinic";
+        public static final String doctor_phone = "doctor_phone";
+        public static final String patient_phone = "patient_phone";
+        public static final String patient_name = "patient_name";
+        public static final String time = "time";
+        public static final String date = "date";
+        public static final String status = "status";
+        public static final String timestamp = "timestamp";
     }
 }

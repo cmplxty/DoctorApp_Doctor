@@ -22,6 +22,7 @@ public class Vars {
         public static final String MESSAGE_ACTIVITY_DATA = "M A D";
         public static final String VIEW_IMAGE_DATA = "V I D";
         public static final String PERSCRIPTION_ACTIVITY_DATA = "P A D";
+        public static final String PROFILE_EDIT_FRAGMENT_DATA = "P E F D";
     }
 
     public class FragmentConnector {
@@ -30,5 +31,7 @@ public class Vars {
 
     public class RequestCode {
         public static final int REQUEST_CALL_CODE_HS = 1111;
+        public static final int REQUEST_CALL_CODE_AP = 1112;
+        public static final int REQUEST_ACCESS_IMAGE_CODE_PEF = 1113;
     }
 }

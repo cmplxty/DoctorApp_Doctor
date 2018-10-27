@@ -1,10 +1,12 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Firebase;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +16,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Model.APRequest;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.HomeService;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Message;
@@ -38,10 +44,12 @@ public class AppFirebase {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mReference;
+    private StorageReference mStorage;
 
     public AppFirebase() {
         this.mAuth = FirebaseAuth.getInstance();
         this.mReference = FirebaseDatabase.getInstance().getReference();
+        this.mStorage = FirebaseStorage.getInstance().getReference();
     }
 
     // Developer Private
@@ -666,6 +674,149 @@ public class AppFirebase {
                 .child(AFModel.appointment_doctor)
                 .child(getCurrentUser().getUid())
                 .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        mReference.child(AFModel.database)
+                                .child(AFModel.appointment)
+                                .child(getCurrentUser().getUid())
+                                .removeValue();
+
+                        mReference.child(AFModel.database)
+                                .child(AFModel.appointment)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            if (snapshot.hasChild(getCurrentUser().getUid())) {
+                                                snapshot.getRef().removeValue();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                        callback.onCallback(task.isSuccessful(), null);
+                    }
+                });
+    }
+
+    /*
+    * Load All Appointment Requests
+    * */
+    public void loadAllAppointmentRequests(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.appointment)
+                .child(getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            List<APRequest> apRequests = new ArrayList<>();
+
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                APRequest apRequest = snapshot.getValue(APRequest.class);
+                                if (apRequest != null) {
+                                    apRequest.setPatient_id(snapshot.getKey());
+                                    apRequests.add(apRequest);
+                                }
+                            }
+
+                            if (apRequests.size() > 0)
+                                callback.onCallback(true, apRequests);
+                            else
+                                callback.onCallback(false, null);
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    public void changeRequestStatusAppointmentRequest(final String value, final String patientId, final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.appointment)
+                .child(getCurrentUser().getUid())
+                .child(patientId)
+                .child(AFModel.ap_variables.status)
+                .setValue(value)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        mReference.child(AFModel.database)
+                                .child(AFModel.appointment)
+                                .child(patientId)
+                                .child(getCurrentUser().getUid())
+                                .child(AFModel.ap_variables.status)
+                                .setValue(value)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        callback.onCallback(task.isSuccessful(), null);
+                                    }
+                                });
+                    }
+                });
+    }
+
+    public void deleteAppointmentFromDoctor(final String patientId, final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.appointment)
+                .child(getCurrentUser().getUid())
+                .child(patientId)
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        mReference.child(AFModel.database)
+                                .child(AFModel.appointment)
+                                .child(patientId)
+                                .child(getCurrentUser().getUid())
+                                .child(AFModel.ap_variables.status)
+                                .setValue(AFModel.cancel);
+
+                        callback.onCallback(task.isSuccessful(), null);
+                    }
+                });
+    }
+
+
+    public void uploadProfileImage(final Uri image, final ICallback callback) {
+        final StorageReference uploadImage = mStorage.child(AFModel.profile_image).child(getCurrentUser().getUid());
+
+        uploadImage.putFile(image)
+                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            uploadImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String url = uri.toString();
+                                    callback.onCallback(true, url);
+                                }
+                            });
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+                });
+    }
+
+    public void updatePatientProfile(Map<String, Object> map, final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.doctor)
+                .child(getCurrentUser().getUid())
+                .updateChildren(map)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

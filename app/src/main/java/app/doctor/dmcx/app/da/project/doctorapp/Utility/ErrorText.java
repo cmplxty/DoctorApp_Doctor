@@ -16,4 +16,5 @@ public class ErrorText {
     public static final String ErrorNoDataFound = "Error! No Data Found.";
     public static final String NoIdSpecified = "Error! No Patient Id Specified";
     public static final String RequestCancelFailed = "Error! Failed to cancel request.";
+    public static final String InvalidPhoneNumberGiven = "Invalid phone number given.";
 }
