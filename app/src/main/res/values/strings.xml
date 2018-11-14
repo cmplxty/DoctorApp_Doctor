@@ -1,4 +1,6 @@
 <resources>
+    <string name="default_notification_channel_id">E-Care Doctor</string>
+
     <string name="app_name">DoctorsApp</string>
     <string name="dashboard">Dashboard</string>
     <string name="dashboard_cap">DASHBOARD</string>
@@ -56,6 +58,7 @@
     <string name="cardiologist">Cardiologist</string>
     <string name="add">ADD</string>
     <string name="prescription">Prescription</string>
+    <string name="hospital">Hospital</string>
 
     <string-array name="per_day_medicine">
         <item>1 – 0 – 0</item>

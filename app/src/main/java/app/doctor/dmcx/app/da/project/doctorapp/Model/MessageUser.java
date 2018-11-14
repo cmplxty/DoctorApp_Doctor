@@ -7,6 +7,11 @@ public class MessageUser {
     private String patient;
     private String timestamp;
     private String type;
+    private String notification_status;
+
+    public String getNotification_status() {
+        return notification_status;
+    }
 
     public String getContent() {
         return content;

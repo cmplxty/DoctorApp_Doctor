@@ -14,7 +14,13 @@ public class AFModel {
     public static final String appointment_doctor = "appointment_doctor";
     public static final String appointment = "appointment";
     public static final String profile_image = "profile_image";
+    public static final String audio_call_doctor = "audio_call_doctor";
+    public static final String notification = "notification";
+    public static final String token = "token";
+    public static final String blog = "blog";
+    public static final String audio_call_device = "audio_call_device";
 
+    public static final String token_id = "token_id";
     public static final String name = "name";
     public static final String email = "email";
     public static final String link = "link";
@@ -46,6 +52,15 @@ public class AFModel {
     public static final String hospital = "hospital";
     public static final String image_link = "image_link";
     public static final String registration = "registration";
+    public static final String notification_status = "notification_status";
+    public static final String not_viewed = "not_viewed";
+    public static final String viewed = "viewed";
+    public static final String audio_call_status = "audio_call_status";
+    public static final String online = "online";
+    public static final String offline = "offline";
+    public static final String audio_call = "audio_call";
+    public static final String doctor_id = "doctor_id";
+    public static final String title = "title";
 
     public static final String deflt = "defaultx01";
     public static final String passcode = "passcode";

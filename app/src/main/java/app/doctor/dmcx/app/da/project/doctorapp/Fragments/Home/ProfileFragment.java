@@ -37,6 +37,8 @@ public class ProfileFragment extends Fragment {
     private TextView doctorSpecialistTV; //
     private TextView doctorChamberTV;
     private TextView doctorCountryTV;
+    private TextView doctorAboutTV;
+    private TextView doctorHospitalTV;
     private Button signOutPBTN;
 
     private Doctor doctor;
@@ -52,6 +54,8 @@ public class ProfileFragment extends Fragment {
         doctorChamberTV = view.findViewById(R.id.doctorChamberTV);
         doctorSpecialistTV = view.findViewById(R.id.doctorSpecialistTV);
         doctorCountryTV = view.findViewById(R.id.doctorCountryTV);
+        doctorAboutTV = view.findViewById(R.id.doctorAboutTV);
+        doctorHospitalTV = view.findViewById(R.id.doctorHospitalTV);
         signOutPBTN = view.findViewById(R.id.signOutPBTN);
     }
 
@@ -69,6 +73,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AuthController.SignOut();
+                Vars.localDB.clearLocalDB();
                 ActivityTrigger.AuthActivity();
             }
         });
@@ -89,6 +94,8 @@ public class ProfileFragment extends Fragment {
                     doctorSpecialistTV.setText(doctor.getSpecialist());
                     doctorChamberTV.setText(doctor.getChamber());
                     doctorCountryTV.setText(doctor.getCountry());
+                    doctorHospitalTV.setText(doctor.getHospital());
+                    doctorAboutTV.setText(doctor.getAbout());
                 }
             }
         });
@@ -99,11 +106,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment_profile, container, false);
-
         init(view);
         event();
         load();
-
         return view;
     }
 }

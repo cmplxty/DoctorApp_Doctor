@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.os.Parcelable;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Activities.Appointment.SetupAppointmentActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.AudioCall.AudioCallActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Blog.BlogEditorActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Blog.MyBlogActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Activities.Messenger.PrescriptionActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Activities.Messenger.ViewImageActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Activities.Messenger.MessageActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Model.Blog;
 import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
 public class ActivityTrigger {
@@ -67,4 +71,31 @@ public class ActivityTrigger {
         activity.startActivity(intent);
     }
 
+    /*
+     * Audio Call Activity
+     * */
+    public static void AudioCallActivity() {
+        Activity activity = RefActivity.refACActivity.get();
+        Intent intent = new Intent(activity, AudioCallActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /*
+     * Blog Editor Activity
+     * */
+    public static void BlogEditorActivity(Blog blog) {
+        Activity activity = RefActivity.refACActivity.get();
+        Intent intent = new Intent(activity, BlogEditorActivity.class);
+        intent.putExtra(Vars.Connector.BLOG_FRAGMENT_DATA, blog);
+        activity.startActivity(intent);
+    }
+
+    /*
+     * My Blog Activity
+     * */
+    public static void MyBlogActivity() {
+        Activity activity = RefActivity.refACActivity.get();
+        Intent intent = new Intent(activity, MyBlogActivity.class);
+        activity.startActivity(intent);
+    }
 }

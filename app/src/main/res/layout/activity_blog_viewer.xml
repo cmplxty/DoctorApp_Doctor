@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/blogImageBEIV"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#e9e9e9"
+            android:src="@drawable/no_image_available"
+            />
+
+        <TextView
+            android:id="@+id/blogTitleBVTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:lines="1"
+            android:text="Blog Titile"
+            android:textColor="@android:color/black"
+            android:background="@drawable/bottom_line_cyan"
+            />
+
+        <TextView
+            android:id="@+id/blogContentBVTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Blog Content"
+            android:textColor="@android:color/black"
+            android:padding="12dp"
+            android:textSize="15sp"
+            android:gravity="start"
+            />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

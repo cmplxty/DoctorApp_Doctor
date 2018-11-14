@@ -2,6 +2,7 @@ package app.doctor.dmcx.app.da.project.doctorapp.Controller;
 
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,8 +53,12 @@ public class MessageController {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
                 if (isSuccessful) {
-                    List<Message> messages = (List<Message>) object;
-                    if (messages != null && messages.size() > 0) {
+                    List<Message> messages = new ArrayList<>();
+                    for (Object obj : (List<?>) object) {
+                        messages.add((Message) obj);
+                    }
+
+                    if (messages.size() > 0) {
                         action.onCompleteAction(object);
                     } else {
                         action.onCompleteAction(ErrorText.ErrorNoMessagesFound);
@@ -89,7 +94,9 @@ public class MessageController {
         userMessage.put(AFModel.timestamp, String.valueOf(System.currentTimeMillis()));
 
         Map<String, Object> userMessageMap = new HashMap<>();
+        userMessage.put(AFModel.notification_status, AFModel.viewed);
         userMessageMap.put(dFromUserId + "/" + pToUserId, userMessage);
+        userMessage.put(AFModel.notification_status, AFModel.not_viewed);
         userMessageMap.put(pToUserId + "/" + dFromUserId, userMessage);
 
         Vars.appFirebase.saveMessage(mainMap, userMessageMap, new ICallback() {
@@ -128,7 +135,9 @@ public class MessageController {
         userMessage.put(AFModel.timestamp, String.valueOf(System.currentTimeMillis()));
 
         Map<String, Object> userMessageMap = new HashMap<>();
+        userMessage.put(AFModel.notification_status, AFModel.viewed);
         userMessageMap.put(dFromUserId + "/" + pToUserId, userMessage);
+        userMessage.put(AFModel.notification_status, AFModel.not_viewed);
         userMessageMap.put(pToUserId + "/" + dFromUserId, userMessage);
 
         Vars.appFirebase.saveMessage(mainMap, userMessageMap, new ICallback() {
@@ -141,5 +150,9 @@ public class MessageController {
                 }
             }
         });
+    }
+
+    public static void UpdateNotViewedToViewedMessage() {
+        Vars.appFirebase.updateNotViewedToViewed(AFModel.message_user);
     }
 }

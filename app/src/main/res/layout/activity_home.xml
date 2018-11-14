@@ -23,10 +23,12 @@
                 android:id="@+id/toolbar"
                 app:title="App"
                 app:titleTextColor="@android:color/white"
-                android:theme="@style/Theme.AppCompat"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                android:background="@color/colorPrimaryDark" />
+                android:theme="@style/Theme.AppCompat"
+                android:background="@color/colorPrimaryDark"
+                app:popupTheme="@style/AppTheme.PopUpTheme"
+                />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -34,22 +36,10 @@
             android:id="@+id/home_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/mainBottomNavViewEx"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-        <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-            android:id="@+id/mainBottomNavViewEx"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_nav_menu" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     </android.support.constraint.ConstraintLayout>
 

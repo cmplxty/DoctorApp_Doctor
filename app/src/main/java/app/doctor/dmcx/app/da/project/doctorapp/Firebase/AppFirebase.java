@@ -1,7 +1,9 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Firebase;
 
+import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,11 +13,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -23,12 +27,15 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Model.ACDevice;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.APRequest;
+import app.doctor.dmcx.app.da.project.doctorapp.Model.Blog;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.HomeService;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Message;
@@ -80,8 +87,7 @@ public class AppFirebase {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 try {
-                    callback.onCallback(task.isSuccessful(),
-                            task.getException() == null ? null : Objects.requireNonNull(task.getException()).getMessage());
+                    callback.onCallback(task.isSuccessful(), task.getException() == null ? null : Objects.requireNonNull(task.getException()).getMessage());
                 } catch (Exception ex) {
                     // Exception Callback
                     callOnErrorOccured(ErrorText.ErrorServiceBlocked);
@@ -95,6 +101,22 @@ public class AppFirebase {
     * */
     public void signOut() {
         mAuth.signOut();
+    }
+
+    /*
+     * Set Token Id
+     * */
+    public void setTokenId() {
+        if (getCurrentUser() != null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put(AFModel.token_id, FirebaseInstanceId.getInstance().getToken());
+
+            mReference.child(AFModel.database)
+                    .child(AFModel.notification)
+                    .child(AFModel.token)
+                    .child(getCurrentUser().getUid())
+                    .updateChildren(map);
+        }
     }
 
     /*
@@ -345,50 +367,6 @@ public class AppFirebase {
                                 callback.onCallback(false, ErrorText.ErrorNoPrescriptionFound);
                         } else {
                             callback.onCallback(false, ErrorText.ErrorNoDataFound);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-    }
-
-
-    /*
-     * Load All Prescriptions
-     * */
-    public void loadPrescriptions(String patinetId, final ICallback callback) {
-        mReference.child(AFModel.database)
-                .child(AFModel.prescription)
-                .child(getCurrentUser().getUid())
-                .child(patinetId)
-                .orderByChild(AFModel.timestamp)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            ArrayList<Prescription> prescriptions = new ArrayList<>();
-                            boolean isPrescriptionsFound = false;
-
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                Prescription prescription = snapshot.getValue(Prescription.class);
-                                if (prescription != null) {
-                                    if (!isPrescriptionsFound) isPrescriptionsFound = true;
-                                    prescriptions.add(prescription);
-                                }
-                            }
-
-                            Collections.sort(prescriptions, new Comparator<Prescription>() {
-                                @Override
-                                public int compare(Prescription p1, Prescription p2) {
-                                    return Long.valueOf(p2.getTimestamp()).compareTo(Long.valueOf(p1.getTimestamp()));
-                                }
-                            });
-                            callback.onCallback(isPrescriptionsFound, prescriptions);
-                        } else {
-                            callback.onCallback(false, ErrorText.ErrorNoPrescriptionFound);
                         }
                     }
 
@@ -652,8 +630,12 @@ public class AppFirebase {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(getCurrentUser().getUid())) {
-                            callback.onCallback(true, null);
+                        if (dataSnapshot.exists()) {
+                            if (dataSnapshot.hasChild(getCurrentUser().getUid())) {
+                                callback.onCallback(true, null);
+                            } else {
+                                callback.onCallback(false, null);
+                            }
                         } else {
                             callback.onCallback(false, null);
                         }
@@ -661,7 +643,7 @@ public class AppFirebase {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        callback.onCallback(false, null);
                     }
                 });
     }
@@ -742,6 +724,9 @@ public class AppFirebase {
                 });
     }
 
+    /*
+    * Change Request Status Appointment
+    * */
     public void changeRequestStatusAppointmentRequest(final String value, final String patientId, final ICallback callback) {
         mReference.child(AFModel.database)
                 .child(AFModel.appointment)
@@ -768,6 +753,9 @@ public class AppFirebase {
                 });
     }
 
+    /*
+    * Delete Appointment From Doctor
+    * */
     public void deleteAppointmentFromDoctor(final String patientId, final ICallback callback) {
         mReference.child(AFModel.database)
                 .child(AFModel.appointment)
@@ -789,7 +777,9 @@ public class AppFirebase {
                 });
     }
 
-
+    /*
+    * Upload Profile Image
+    * */
     public void uploadProfileImage(final Uri image, final ICallback callback) {
         final StorageReference uploadImage = mStorage.child(AFModel.profile_image).child(getCurrentUser().getUid());
 
@@ -812,6 +802,9 @@ public class AppFirebase {
                 });
     }
 
+    /*
+    * Update Patient Profile
+    * */
     public void updatePatientProfile(Map<String, Object> map, final ICallback callback) {
         mReference.child(AFModel.database)
                 .child(AFModel.doctor)
@@ -821,6 +814,308 @@ public class AppFirebase {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         callback.onCallback(task.isSuccessful(), null);
+                    }
+                });
+    }
+
+    /*
+    * Create New Appointment
+    * */
+    public void countNewAppointments(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.appointment)
+                .child(getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            int count = 0;
+
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                APRequest apRequest = snapshot.getValue(APRequest.class);
+                                if (apRequest != null) {
+                                    if (apRequest.getNotification_status() != null && apRequest.getNotification_status().equals(AFModel.not_viewed)) {
+                                        count++;
+                                    }
+                                }
+                            }
+
+                            if (count > 0)
+                                callback.onCallback(true, count);
+                            else
+                                callback.onCallback(false, null);
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /*
+    * Count New Home Services
+    * */
+    public void countNewHomeServices(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.home_service)
+                .child(getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            int count = 0;
+
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                HomeService homeService = snapshot.getValue(HomeService.class);
+                                if (homeService != null) {
+                                    if (homeService.getNotification_status() != null && homeService.getNotification_status().equals(AFModel.not_viewed)) {
+                                        count++;
+                                    }
+                                }
+                            }
+
+                            if (count > 0)
+                                callback.onCallback(true, count);
+                            else
+                                callback.onCallback(false, null);
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /*
+    * Count New Message
+    * */
+    public void countNewMessage(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.message_user)
+                .child(getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            int count = 0;
+
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                MessageUser messageUser = snapshot.getValue(MessageUser.class);
+                                if (messageUser != null) {
+                                    if (messageUser.getNotification_status() != null && messageUser.getNotification_status().equals(AFModel.not_viewed)) {
+                                        count++;
+                                    }
+                                }
+                            }
+
+                            if (count > 0)
+                                callback.onCallback(true, count);
+                            else
+                                callback.onCallback(false, null);
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /*
+    * Update Not Viewed To Viewed
+    * */
+    public void updateNotViewedToViewed(String property) {
+        mReference.child(AFModel.database)
+                .child(property)
+                .child(getCurrentUser().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            if (snapshot.hasChild(AFModel.notification_status)) {
+                                snapshot.child(AFModel.notification_status).getRef().setValue(AFModel.viewed);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /*
+    * Set Audio Call Doctor
+    * */
+    public void setAudioCallDoctor(String status, final ICallback callback) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(AFModel.audio_call_status, status);
+
+        mReference.child(AFModel.database)
+                .child(AFModel.audio_call_doctor)
+                .child(getCurrentUser().getUid())
+                .updateChildren(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        callback.onCallback(task.isSuccessful(), null);
+                    }
+                });
+    }
+
+    /*
+    * Check Audio Call Status
+    * */
+    public void checkAudioCallStatus(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.audio_call_doctor)
+                .child(getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            String status = dataSnapshot.child(AFModel.audio_call_status).getValue(String.class);
+                            callback.onCallback(true, status);
+                        } else
+                            callback.onCallback(false, AFModel.offline);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /*
+    * Load Specific Patient
+    * */
+    public void loadSpecificPatient(String patientId, final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.patient)
+                .child(patientId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            callback.onCallback(true, dataSnapshot.getValue(Patient.class));
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /*
+    * Load Last Blog Content
+    * */
+    public void loadLastBlog(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.blog)
+                .orderByChild(AFModel.timestamp)
+                .limitToLast(1)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            Blog blog = dataSnapshot.getValue(Blog.class);
+                            if (blog != null) {
+                                blog.setId(dataSnapshot.getKey());
+                                callback.onCallback(true, blog);
+                            } else {
+                                callback.onCallback(false, null);
+                            }
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+    }
+
+    /*
+     * Load All Blog Content
+     * */
+    public void loadAllBlogs(final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.blog)
+                .orderByChild(AFModel.timestamp)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            List<Blog> blogs = new ArrayList<>();
+
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Blog blog = snapshot.getValue(Blog.class);
+                                if (blog != null) {
+                                    blog.setId(snapshot.getKey());
+                                    blogs.add(blog);
+                                }
+                            }
+
+                            if (blogs.size() > 0)
+                                callback.onCallback(true, blogs);
+                            else
+                                callback.onCallback(false, null);
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    /*
+    * Check Audio Call Device Id
+    * */
+    public void checkAudioCallDeviiceId(String userId, final ICallback callback) {
+        mReference.child(AFModel.database)
+                .child(AFModel.audio_call_device)
+                .child(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            ACDevice acDevice = dataSnapshot.getValue(ACDevice.class);
+                            if (acDevice != null)
+                                callback.onCallback(true, acDevice.getDevice_id());
+                            else
+                                callback.onCallback(false, null);
+                        } else {
+                            callback.onCallback(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
                     }
                 });
     }

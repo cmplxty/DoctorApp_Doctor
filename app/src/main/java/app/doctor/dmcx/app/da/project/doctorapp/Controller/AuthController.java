@@ -26,7 +26,6 @@ public class AuthController {
 
         // Loading
         LoadingDialog.start(LoadingText.PleaseWait);
-
         Vars.appFirebase.getUserByEmail(email, new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
@@ -34,7 +33,6 @@ public class AuthController {
                     Vars.appFirebase.signIn(email, password, new ICallback() {
                         @Override
                         public void onCallback(boolean isSuccessful, Object object) {
-                            // Loading Stop
                             LoadingDialog.stop();
 
                             if (!isSuccessful) {

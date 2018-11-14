@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
 import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
@@ -25,10 +26,17 @@ public class AppFragmentManager {
                 .commit();
 
         Vars.currentFragment = fragment;
+        updateOptionsMenu();
     }
 
     public static void replace (AppCompatActivity appCompatActivity, int container, Fragment fragment, String tag, Bundle bundle) {
         fragment.setArguments(bundle);
         replace(appCompatActivity, container, fragment, tag);
+        updateOptionsMenu();
+    }
+
+    private static void updateOptionsMenu() {
+        if (RefActivity.refACActivity.get() != null)
+            RefActivity.refACActivity.get().invalidateOptionsMenu();
     }
 }

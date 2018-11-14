@@ -30,6 +30,7 @@ import app.doctor.dmcx.app.da.project.doctorapp.Model.APDoctor;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Appointment;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
+import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
 public class SetupAppointmentActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, IAppointment {
 
@@ -175,13 +176,14 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
         final String clinic = doctorClinicLocationAPTV.getText().toString();
         final String passcode = doctorApptPasswordAPTV.getText().toString();
         final String appoinments = gson.toJson(appointments);
+        final String email = Vars.appFirebase.getCurrentUser().getEmail();
 
         if (name.equals("") || phone.equals("") || specialist.equals("") || clinic.equals("") || passcode.equals("") || appoinments.equals("[]")) {
             Toast.makeText(RefActivity.refACActivity.get(), ValidationText.PleaseFillAllTheFields, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        AppointmentController.SetupAppointmentDoctor(passcode, new APDoctor(name, specialist, phone, clinic, appoinments), new IAction() {
+        AppointmentController.SetupAppointmentDoctor(new APDoctor(name, specialist, phone, clinic, appoinments, email, passcode), new IAction() {
             @Override
             public void onCompleteAction(Object object) {
                 if ((boolean) object) {

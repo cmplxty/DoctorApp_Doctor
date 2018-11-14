@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,11 +56,15 @@ public class PrescriptionPatientListRecyclerViewAdapter extends RecyclerView.Ada
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString(Vars.FragmentConnector.PRESCRIPTION_LIST_FRAGMENT_DATA, prescriptionPatients.get(itemPosition).getPatient_id());
+                bundle.putString(Vars.Connector.PRESCRIPTION_LIST_FRAGMENT_DATA, prescriptionPatients.get(itemPosition).getPatient_id());
 
                 AppFragmentManager.replace(RefActivity.refACActivity.get(), AppFragmentManager.homeFragmentContainer, AppFragmentManager.addArgumentFragment(new PrescriptionListFragment(), bundle), FragmentNames.Prescription);
             }
         });
+
+        if (position == prescriptionPatients.size() - 1 && prescriptionPatients.size() != 1) {
+            holder.relativeLayoutLineRL.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -69,11 +74,13 @@ public class PrescriptionPatientListRecyclerViewAdapter extends RecyclerView.Ada
 
     class PrescriptionPatientListRecyclerViewHolder extends RecyclerView.ViewHolder {
 
+        private RelativeLayout relativeLayoutLineRL;
         private TextView patientsNamePPTV;
 
         PrescriptionPatientListRecyclerViewHolder(View itemView) {
             super(itemView);
 
+            relativeLayoutLineRL = itemView.findViewById(R.id.relativeLayoutLineRL);
             patientsNamePPTV = itemView.findViewById(R.id.patientsNamePPTV);
         }
     }

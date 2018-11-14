@@ -11,6 +11,7 @@ public class APRequest {
     private String time;
     private String date;
     private String status;
+    private String notification_status;
     private String timestamp;
 
     public APRequest() {
@@ -18,6 +19,10 @@ public class APRequest {
 
     public String getPatient_id() {
         return patient_id;
+    }
+
+    public String getNotification_status() {
+        return notification_status;
     }
 
     public void setPatient_id(String patient_id) {

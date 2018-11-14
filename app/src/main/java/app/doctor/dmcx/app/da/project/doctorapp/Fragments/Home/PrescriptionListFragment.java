@@ -35,7 +35,6 @@ public class PrescriptionListFragment extends Fragment {
 
     private String patientId;
     private PrescriptionListRecyclerViewAdapter prescriptionListRecyclerViewAdapter;
-
     // Variables
 
     // Methods
@@ -48,7 +47,7 @@ public class PrescriptionListFragment extends Fragment {
         prescriptionListPLRV.setHasFixedSize(true);
         prescriptionListPLRV.setAdapter(prescriptionListRecyclerViewAdapter);
 
-        patientId = getArguments() == null ? "" : getArguments().getString(Vars.FragmentConnector.PRESCRIPTION_LIST_FRAGMENT_DATA);
+        patientId = getArguments() == null ? "" : getArguments().getString(Vars.Connector.PRESCRIPTION_LIST_FRAGMENT_DATA);
     }
 
     private void loadData() {
@@ -82,10 +81,8 @@ public class PrescriptionListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment_prescription_list, container, false);
-
         init(view);
         loadData();
-
         return view;
     }
 }

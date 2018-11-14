@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +22,7 @@ import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.MessageUser;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Patient;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageUserRecyclerViewAdapter extends RecyclerView.Adapter<MessageUserRecyclerViewAdapter.MessageUserRecyclerViewHolder> {
 
@@ -44,6 +45,10 @@ public class MessageUserRecyclerViewAdapter extends RecyclerView.Adapter<Message
         final int itemPosition = position;
         final MessageUserRecyclerViewHolder viewHolder = holder;
 
+        if (messageUsers.size() - 1 == position && messageUsers.size() > 1) {
+            holder.relativeLayoutLineRL.setVisibility(View.GONE);
+        }
+
         MessageController.LoadMessageUserContent(messageUsers.get(itemPosition).getPatient(), new IAction() {
             @Override
             public void onCompleteAction(Object object) {
@@ -53,15 +58,15 @@ public class MessageUserRecyclerViewAdapter extends RecyclerView.Adapter<Message
                     Picasso.with(RefActivity.refACActivity.get())
                             .load(patient.getLink() == null ? AFModel.deflt : patient.getLink())
                             .placeholder(R.drawable.noperson)
-                            .into(viewHolder.userImageIV);
+                            .into(viewHolder.userImageCIV);
 
                     viewHolder.fromTV.setText(patient.getName());
                     if (messageUsers.get(itemPosition).getType().equals(AFModel.text)) {
                         viewHolder.messageContentTV.setText(messageUsers.get(itemPosition).getContent());
                     } else if (messageUsers.get(itemPosition).getType().equals(AFModel.image)) {
-                        viewHolder.messageContentTV.setText(new StringBuilder("Photo"));
+                        viewHolder.messageContentTV.setText(new StringBuilder("\uD83D\uDCF7 Photo"));
                     } else {
-                        viewHolder.messageContentTV.setText(new StringBuilder("Prescription"));
+                        viewHolder.messageContentTV.setText(new StringBuilder("\uD83D\uDCC3 Prescription"));
                     }
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -86,14 +91,16 @@ public class MessageUserRecyclerViewAdapter extends RecyclerView.Adapter<Message
 
     class MessageUserRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView userImageIV;
+        private RelativeLayout relativeLayoutLineRL;
+        private CircleImageView userImageCIV;
         private TextView fromTV;
         private TextView messageContentTV;
 
         MessageUserRecyclerViewHolder(View itemView) {
             super(itemView);
 
-            userImageIV = itemView.findViewById(R.id.userImageIV);
+            relativeLayoutLineRL = itemView.findViewById(R.id.relativeLayoutLineRL);
+            userImageCIV = itemView.findViewById(R.id.userImageCIV);
             fromTV = itemView.findViewById(R.id.fromTV);
             messageContentTV = itemView.findViewById(R.id.messageContentTV);
         }

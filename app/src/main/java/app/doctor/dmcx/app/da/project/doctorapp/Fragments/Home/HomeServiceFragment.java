@@ -1,6 +1,5 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home;
 
-import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
@@ -74,6 +72,8 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
                 iHomeServiceEvent.onFinializeRegister();
             }
         });
+
+        HomeServiceController.UpdateNotViewedToViewedHomeService();
     }
 
     private void updateUIElements() {
@@ -131,9 +131,9 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
                     }
                 }
 
-                updateHomeServiceRV(homeServices);
                 homeServiceRecyclerViewAdapter.setHomeServices(homeServices);
                 homeServiceRecyclerViewAdapter.notifyDataSetChanged();
+                updateHomeServiceRV(homeServices);
             }
         });
     }
@@ -143,9 +143,7 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment_home_service, container, false);
-
         init(view);
-
         return view;
     }
 

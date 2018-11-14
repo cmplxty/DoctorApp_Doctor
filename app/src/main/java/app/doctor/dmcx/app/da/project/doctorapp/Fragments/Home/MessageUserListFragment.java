@@ -20,7 +20,6 @@ import app.doctor.dmcx.app.da.project.doctorapp.Adapter.MessageUserRecyclerViewA
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.MessageController;
-import app.doctor.dmcx.app.da.project.doctorapp.Model.Message;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.MessageUser;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
 
@@ -43,6 +42,8 @@ public class MessageUserListFragment extends Fragment {
 
         messageUserRecyclerViewAdapter = new MessageUserRecyclerViewAdapter();
         messagesHFMRV.setAdapter(messageUserRecyclerViewAdapter);
+
+        MessageController.UpdateNotViewedToViewedMessage();
     }
 
     private void load_data() {
@@ -76,11 +77,8 @@ public class MessageUserListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment_message, container, false);
-
         init(view);
-
         load_data();
-
         return view;
     }
 }

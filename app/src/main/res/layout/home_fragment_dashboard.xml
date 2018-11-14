@@ -1,13 +1,608 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:scrollbars="none"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Dashboard"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/doctorImageDBCIV"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/noperson"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/doctorImageDBCIV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/doctorImageDBCIV"
+                app:layout_constraintTop_toTopOf="@+id/doctorImageDBCIV">
+
+                <TextView
+                    android:id="@+id/doctorNameDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dr. Richard K. One"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/doctorDegreeDBTV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/doctorDegreeDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="MBBS, MBBAS"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/doctorNameDBTV" />
+
+                <TextView
+                    android:id="@+id/doctorSpecialistDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Cardiologist, Surgeon"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/doctorHospitalDBTV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/doctorChamberDBTV" />
+
+                <TextView
+                    android:id="@+id/doctorHospitalDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Hospital: Square Hospital"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/doctorEmailDBTV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/doctorSpecialistDBTV" />
+
+                <TextView
+                    android:id="@+id/doctorEmailDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Email: sadman@gmail.com"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/doctorPhoneDBTV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/doctorHospitalDBTV" />
+
+                <TextView
+                    android:id="@+id/doctorPhoneDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Phone: 01964895094"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/doctorImageDBCIV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/doctorEmailDBTV" />
+
+                <TextView
+                    android:id="@+id/doctorChamberDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Chamber: West Razabazar"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/doctorSpecialistDBTV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/doctorDegreeDBTV" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/serviceDBCL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/doctorImageDBCIV">
+
+                <TextView
+                    android:id="@+id/serviceTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:text="Service"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/messageDBCV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/serviceTV">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/messageIV"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/mail_message_cyan"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/messageTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Message"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toTopOf="@+id/messageDetailTV"
+                            app:layout_constraintStart_toEndOf="@+id/messageIV"
+                            app:layout_constraintTop_toTopOf="@+id/messageIV"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/messageDetailTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="New message notification"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/messageIV"
+                            app:layout_constraintStart_toEndOf="@+id/messageIV"
+                            app:layout_constraintTop_toBottomOf="@+id/messageTV" />
+
+                        <TextView
+                            android:id="@+id/newMessageCounterDBTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dashboard_tv_number_counter"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/homeServiceDBCV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/messageDBCV">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/hsIV"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/house_cyan"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/hsTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Home Service"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toTopOf="@+id/hsDetailTV"
+                            app:layout_constraintStart_toEndOf="@+id/hsIV"
+                            app:layout_constraintTop_toTopOf="@+id/hsIV"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/hsDetailTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="New Home Service Request"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hsIV"
+                            app:layout_constraintStart_toEndOf="@+id/hsIV"
+                            app:layout_constraintTop_toBottomOf="@+id/hsTV" />
+
+                        <TextView
+                            android:id="@+id/newHomeServiceCounterDBTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dashboard_tv_number_counter"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/appointmentDBCV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/homeServiceDBCV">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/apptIV"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/appointment_cyan"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/apptTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Appointment"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toTopOf="@+id/apptDetailTV"
+                            app:layout_constraintStart_toEndOf="@+id/apptIV"
+                            app:layout_constraintTop_toTopOf="@+id/apptIV"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/apptDetailTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="New Appointment Request"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/apptIV"
+                            app:layout_constraintStart_toEndOf="@+id/apptIV"
+                            app:layout_constraintTop_toBottomOf="@+id/apptTV" />
+
+                        <TextView
+                            android:id="@+id/newApptCounterDBTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/dashboard_tv_number_counter"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/receptionistDBCL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/serviceDBCL">
+
+                <TextView
+                    android:id="@+id/receptionistDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Recptionist"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/receptionistDBCV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/receptionistDBTV">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/recpIV"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/appointment_cyan"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/recpNameTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Reciptionist Name"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toTopOf="@+id/recpStatusTV"
+                            app:layout_constraintStart_toEndOf="@+id/recpIV"
+                            app:layout_constraintTop_toTopOf="@+id/recpIV"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/recpStatusTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Active"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/recpIV"
+                            app:layout_constraintStart_toEndOf="@+id/recpIV"
+                            app:layout_constraintTop_toBottomOf="@+id/recpNameTV" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/blogDBCL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/receptionistDBCL">
+
+                <TextView
+                    android:id="@+id/blogDBTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:text="Blog"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/blogDBCV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/blogDBTV">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/noBlogDBCL"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/noBlogFoundDBTV"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:padding="15dp"
+                                android:text="No Blog Content Found"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/darker_gray"
+                                android:textSize="20sp"
+                                app:layout_constraintBottom_toTopOf="@+id/writeBlogNowDBBTN"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <Button
+                                android:id="@+id/writeBlogNowDBBTN"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Write Blog Now"
+                                android:background="@android:color/white"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:layout_constraintTop_toBottomOf="@+id/noBlogFoundDBTV"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/blogMainDBCL"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/blogImageDBIV"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/noimage"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/blogSymbolDBIV"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_marginEnd="12dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/blog_cyan"
+                                app:layout_constraintBottom_toBottomOf="@+id/blogTitleDBTV"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/blogTitleDBTV" />
+
+                            <TextView
+                                android:id="@+id/blogTitleDBTV"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="12dp"
+                                android:text="Blog Title"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="18sp"
+                                app:layout_constraintEnd_toStartOf="@+id/blogSymbolDBIV"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/blogImageDBIV" />
+
+                            <TextView
+                                android:id="@+id/blogContentDBTV"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="12dp"
+                                android:text="Blog Content"
+                                android:textColor="@android:color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/blogSymbolDBIV"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/blogTitleDBTV" />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+
+</ScrollView>

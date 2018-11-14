@@ -35,4 +35,6 @@ public class ValidationText {
     public static final String AlreadyRequestAccepted = "Already request accepted.";
     public static final String AppointmentDeleted = "Appointment deleted.";
     public static final String UpdateSuccessful = "Update Successful.";
+    public static final String StatusChanged = "Status Changed!";
+    public static final String SameDeviceConfict = "Same device conflict.";
 }

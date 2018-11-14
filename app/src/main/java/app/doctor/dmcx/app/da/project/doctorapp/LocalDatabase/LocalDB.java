@@ -23,8 +23,17 @@ public class LocalDB {
         editor.apply();
     }
 
+    public void saveInteger(String key, int value) {
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
     public String retriveString(String key) {
         return sharedPreferences.getString(key, "");
+    }
+
+    public Integer retriveInteger(String key) {
+        return sharedPreferences.getInt(key, 0);
     }
 
     public void clearLocalDB() {

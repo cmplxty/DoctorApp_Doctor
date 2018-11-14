@@ -24,7 +24,6 @@ import app.doctor.dmcx.app.da.project.doctorapp.Adapter.AppointmentRecyclerViewA
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.AppointmentController;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
-import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAppointment;
 import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAppointmentEvent;
 import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallPatient;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.APRequest;
@@ -69,6 +68,8 @@ public class AppointmentFragment extends Fragment implements IAppointmentEvent {
                 iAppointmentEvent.onFinalize();
             }
         });
+
+        AppointmentController.UpdateNotViewedToViewedAppointment();
     }
 
     private void updateUiElements() {

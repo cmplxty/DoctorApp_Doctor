@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -46,11 +47,10 @@ public class HomeServiceRecyclerViewAdapter extends RecyclerView.Adapter<HomeSer
 
     @Override
     public void onBindViewHolder(@NonNull HomeServiceRecyclerViewHolder holder, int position) {
-
         final int itemPosition = position;
         final String address = homeServices.get(position).getPatient_address() == null || homeServices.get(position).getPatient_address().equals(AFModel.deflt) ? "" : homeServices.get(position).getPatient_address();
 
-        holder.patientNameHSTV.setText(homeServices.get(position).getPatinet_name());
+        holder.patientNameHSTV.setText(homeServices.get(position).getPatient_name());
         holder.patientAddressHSTV.setText(new StringBuilder("Address: ").append(address));
 
         holder.phoneHSIB.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +71,8 @@ public class HomeServiceRecyclerViewAdapter extends RecyclerView.Adapter<HomeSer
             }
         });
 
+        if (position == homeServices.size() - 1 && homeServices.size() != 1)
+            holder.bottomLineHSRL.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -100,6 +102,7 @@ public class HomeServiceRecyclerViewAdapter extends RecyclerView.Adapter<HomeSer
 
     class HomeServiceRecyclerViewHolder extends RecyclerView.ViewHolder {
 
+        private RelativeLayout bottomLineHSRL;
         private TextView patientNameHSTV;
         private TextView patientAddressHSTV;
         private ImageButton phoneHSIB;
@@ -108,6 +111,7 @@ public class HomeServiceRecyclerViewAdapter extends RecyclerView.Adapter<HomeSer
         HomeServiceRecyclerViewHolder(View itemView) {
             super(itemView);
 
+            bottomLineHSRL = itemView.findViewById(R.id.bottomLineHSRL);
             patientNameHSTV = itemView.findViewById(R.id.patientNameHSTV);
             patientAddressHSTV = itemView.findViewById(R.id.patientAddressHSTV);
             phoneHSIB = itemView.findViewById(R.id.phoneHSIB);

@@ -2,6 +2,8 @@ package app.doctor.dmcx.app.da.project.doctorapp.Utility;
 
 import android.app.AlertDialog;
 
+import java.util.ArrayList;
+
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import dmax.dialog.SpotsDialog;
 
@@ -20,5 +22,17 @@ public class LoadingDialog {
 
         spotDialog = null;
     }
+
+    public static AlertDialog on(String message) {
+        spotDialog = new SpotsDialog(RefActivity.refACActivity.get(), message);
+        spotDialog.show();
+        return spotDialog;
+    }
+
+    public static void off(AlertDialog alertDialog) {
+        alertDialog.dismiss();
+    }
+
+
 
 }

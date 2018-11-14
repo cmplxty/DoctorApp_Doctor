@@ -19,7 +19,6 @@ public class HomeServiceController {
 
     public static void CheckForRegisteredHomeServiceDoctor(final IAction action) {
         LoadingDialog.start(LoadingText.PleaseWait);
-
         Vars.appFirebase.checkHomeServiceUser(new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
@@ -94,5 +93,9 @@ public class HomeServiceController {
                 }
             }
         });
+    }
+
+    public static void UpdateNotViewedToViewedHomeService() {
+        Vars.appFirebase.updateNotViewedToViewed(AFModel.home_service);
     }
 }

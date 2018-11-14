@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/createBMI"
+        android:title="Create"
+        android:icon="@drawable/create_white_alt"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/myBlogsBMI"
+        android:title="My Blog"
+        android:icon="@drawable/storage_white"
+        app:showAsAction="always"
+        />
+
+</menu>

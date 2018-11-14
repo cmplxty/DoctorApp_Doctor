@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/bgRelativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:background="@drawable/bg_cyan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,11 +15,11 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/doctorProfilePicCIV"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/noprofilepic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,81 +29,62 @@
         android:id="@+id/doctorNameTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/developer_name"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/nestedScrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorProfilePicCIV" />
 
-    <TextView
-        android:id="@+id/doctorWelcomeNoteTV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/welcome_note"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doctorNameTV" />
-
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:fillViewport="true"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/signOutPBTN"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bgRelativeLayout"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/bgRelativeLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/doctorDetailCL"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bgRelativeLayout">
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="2dp">
 
-                <ImageView
-                    android:id="@+id/doctorEditProfileIV"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/edit_profile"
-                    android:contentDescription="@string/edit_image"
-                    android:padding="5dp"
-                    android:src="@drawable/edit_black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- Upper -->
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/detailCL"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.496"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/doctorEditProfileIV">
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/doctorEditProfileIV"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"
+                        android:contentDescription="@string/edit_image"
+                        android:src="@drawable/edit_cyan"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/mailIV"
@@ -128,7 +108,7 @@
                         android:textSize="15sp"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="@+id/mailIV"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/doctorEditProfileIV"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/mailIV"
                         app:layout_constraintTop_toTopOf="@+id/mailIV" />
@@ -138,7 +118,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:contentDescription="@string/phone_image"
                         android:src="@drawable/phone_cyan_dk"
                         app:layout_constraintStart_toStartOf="parent"
@@ -165,7 +145,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:contentDescription="@string/home_image"
                         android:src="@drawable/doctor_chember_cyan"
                         app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +174,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:contentDescription="@string/home_image"
                         android:src="@drawable/doc_cyan_dk"
                         app:layout_constraintStart_toStartOf="parent"
@@ -220,12 +200,10 @@
                         android:id="@+id/cityIV"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:contentDescription="@string/flag_image"
                         android:src="@drawable/flag_cyan_dk"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/specialistIV" />
 
@@ -245,48 +223,91 @@
                         app:layout_constraintStart_toEndOf="@+id/cityIV"
                         app:layout_constraintTop_toTopOf="@+id/cityIV" />
 
+                    <ImageView
+                        android:id="@+id/hospitalIV"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:contentDescription="@string/hospital"
+                        android:src="@drawable/hospital_cyan"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/doctorCountryTV" />
+
+                    <TextView
+                        android:id="@+id/doctorHospitalTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/hospital"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="@+id/hospitalIV"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/hospitalIV"
+                        app:layout_constraintTop_toTopOf="@+id/hospitalIV" />
+
                 </android.support.constraint.ConstraintLayout>
 
-                <!-- Lower -->
-                <Button
-                    android:id="@+id/helpPBTN"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/profile_button_bg"
-                    android:text="@string/help"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/signOutPBTN"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detailCL"
-                    app:layout_constraintVertical_bias="1.0" />
+            </android.support.v7.widget.CardView>
 
-                <Button
-                    android:id="@+id/signOutPBTN"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/profile_button_bg"
-                    android:text="@string/sign_out"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/helpPBTN"
-                    app:layout_constraintTop_toBottomOf="@+id/detailCL"
-                    app:layout_constraintVertical_bias="1.0" />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:cardCornerRadius="1dp"
+                app:cardElevation="2dp">
 
-            </android.support.constraint.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bottom_line_cyan"
+                        android:padding="8dp"
+                        android:text="About"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/doctorAboutTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="about the doctor"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/signOutPBTN"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/profile_button_bg"
+        android:text="@string/sign_out"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

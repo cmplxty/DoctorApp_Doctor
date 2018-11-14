@@ -1,5 +1,6 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Controller;
 
+import android.app.AlertDialog;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -18,25 +19,26 @@ import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 public class AppointmentController {
 
     public static void CheckAppointmentDoctor(final IAction action) {
-        LoadingDialog.start(LoadingText.PleaseWait);
+        final AlertDialog dialog = LoadingDialog.on(LoadingText.PleaseWait);
 
         Vars.appFirebase.checkAppointmentDoctor(new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
-                LoadingDialog.stop();
+                LoadingDialog.off(dialog);
                 action.onCompleteAction(isSuccessful);
             }
         });
     }
 
-    public static void SetupAppointmentDoctor(String passcode, APDoctor apDoctor, final IAction action) {
+    public static void SetupAppointmentDoctor(APDoctor apDoctor, final IAction action) {
         Map<String, Object> map = new HashMap<>();
         map.put(AFModel.name, apDoctor.getName());
         map.put(AFModel.phone, apDoctor.getPhone());
         map.put(AFModel.clinic, apDoctor.getClinic());
         map.put(AFModel.specialist, apDoctor.getSpecialist());
         map.put(AFModel.appointments, apDoctor.getAppointments());
-        map.put(AFModel.passcode, passcode);
+        map.put(AFModel.email, apDoctor.getEmail());
+        map.put(AFModel.passcode, apDoctor.getPasscode());
 
         Vars.appFirebase.setupAppointmentDoctor(map, new ICallback() {
             @Override
@@ -69,10 +71,6 @@ public class AppointmentController {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
                 action.onCompleteAction(object);
-
-                if (!isSuccessful) {
-                    Toast.makeText(RefActivity.refACActivity.get(), ErrorText.ErrorNoDataFound, Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }
@@ -112,5 +110,9 @@ public class AppointmentController {
                 }
             }
         });
+    }
+
+    public static void UpdateNotViewedToViewedAppointment() {
+        Vars.appFirebase.updateNotViewedToViewed(AFModel.appointment);
     }
 }

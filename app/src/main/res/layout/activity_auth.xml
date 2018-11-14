@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_auth"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -20,11 +21,10 @@
         <ImageView
             android:id="@+id/imageIconSiIV"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="80dp"
             android:contentDescription="@string/general_image"
-            android:scaleType="fitCenter"
-            android:src="@drawable/image_icon_new"
+            android:src="@drawable/ec_d_full"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,11 +32,11 @@
         <ImageView
             android:id="@+id/signInIV"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
             android:contentDescription="@string/general_image"
             android:scaleType="fitCenter"
-            android:src="@drawable/sign_in_icon_shadow"
+            android:src="@drawable/signin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageIconSiIV" />

@@ -1,5 +1,6 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Controller;
 
+import android.app.AlertDialog;
 import android.net.Uri;
 import android.widget.Toast;
 
@@ -22,8 +23,7 @@ import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
 public class ProfileController {
 
-    public static void LoadProfile(final IAction action) {
-        // Loading
+    private static void LoadProfile(final IAction action) {
         INavHeader iNavHeader = null;
         if (RefActivity.refACActivity.get() instanceof HomeActivity) {
             iNavHeader = (HomeActivity) RefActivity.refACActivity.get();
@@ -31,12 +31,11 @@ public class ProfileController {
 
         final INavHeader finalINavHeader = iNavHeader;
 
-        LoadingDialog.start(LoadingText.RetrivingProfile);
+        final AlertDialog alertDialog = LoadingDialog.on(LoadingText.RetrivingProfile);
         Vars.appFirebase.getUserProfileData(new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
-                // Loading Stop
-                LoadingDialog.stop();
+                LoadingDialog.off(alertDialog);
 
                 if (!isSuccessful) {
                     if (object instanceof String) {
@@ -84,7 +83,6 @@ public class ProfileController {
     }
 
     public static void UpdateProfileDetail(Doctor doctor, Uri profileImageUri) {
-
         final Map<String, Object> map = new HashMap<>();
         map.put(AFModel.about, doctor.getAbout().equals("") ? AFModel.deflt : doctor.getAbout());
         map.put(AFModel.chamber, doctor.getChamber().equals("") ? AFModel.deflt : doctor.getChamber());
@@ -100,12 +98,11 @@ public class ProfileController {
         map.put(AFModel.specialist, doctor.getSpecialist().equals("") ? AFModel.deflt : doctor.getSpecialist());
 
         if (profileImageUri != null) {
-            LoadingDialog.start(LoadingText.UploadingImage);
-
+            final AlertDialog alertDialog = LoadingDialog.on(LoadingText.UploadingImage);
             Vars.appFirebase.uploadProfileImage(profileImageUri, new ICallback() {
                 @Override
                 public void onCallback(boolean isSuccessful, Object object) {
-                    LoadingDialog.stop();
+                    LoadingDialog.off(alertDialog);
 
                     if (isSuccessful) {
                         String url = (String) object;
@@ -121,12 +118,11 @@ public class ProfileController {
     }
 
     private static void UpdateUserDetail(Map<String, Object> map) {
-        LoadingDialog.start(LoadingText.PleaseWait);
-
+        final AlertDialog alertDialog = LoadingDialog.on(LoadingText.PleaseWait);
         Vars.appFirebase.updatePatientProfile(map, new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
-                LoadingDialog.stop();
+                LoadingDialog.off(alertDialog);
 
                 if (isSuccessful) {
                     LoadProfile(new IAction() {
