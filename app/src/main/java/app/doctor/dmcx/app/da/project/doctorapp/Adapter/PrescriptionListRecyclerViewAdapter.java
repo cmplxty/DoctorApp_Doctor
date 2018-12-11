@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.ActivityTrigger;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Vars.ActivityTrigger;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Prescription;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
 

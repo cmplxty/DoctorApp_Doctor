@@ -4,10 +4,23 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <TextView
+        android:id="@+id/noBlogFoundBFTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No blog found..."
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        />
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/allBlogContentBRV"
+        android:id="@+id/blogsBFRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
+        android:clipToPadding="false"
+        android:paddingBottom="5dp"
         tools:listitem="@layout/layout_rv_single_blog"
         />
 

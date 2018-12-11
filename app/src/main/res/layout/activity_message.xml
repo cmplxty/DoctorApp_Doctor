@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Activities.HomeActivity">
+    tools:context=".Activities.Home.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -14,11 +13,12 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            app:title="Doctor Name"
-            app:titleTextColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/colorPrimaryDark" />
+            android:background="@color/colorPrimaryDark"
+            android:theme="@style/Theme.AppCompat"
+            app:title="Doctor Name"
+            app:titleTextColor="@android:color/white" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -26,50 +26,70 @@
         android:id="@+id/messagesAMRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/prescriptionMsgIB"
+        android:foregroundGravity="bottom"
+        app:layout_constraintBottom_toTopOf="@+id/sendAMIB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-    <EditText
-        android:id="@+id/messageAreaET"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/message_edit_text_bg"
-        android:hint="@string/enter_message"
-        android:inputType="textMultiLine"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/prescriptionMsgIB"
-        app:layout_constraintEnd_toStartOf="@+id/prescriptionMsgIB"
+        android:background="@drawable/message_box_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/sendAMIB"
+        app:layout_constraintEnd_toStartOf="@+id/sendAMIB"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/prescriptionMsgIB" />
+        app:layout_constraintTop_toTopOf="@+id/sendAMIB">
+
+        <ImageButton
+            android:id="@+id/prescriptionAMIB"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/button_bg_circle_white"
+            android:scaleType="center"
+            android:src="@drawable/prescription_cyan_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/messageAreaAMET"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/message_et_bg"
+            android:hint="Enter your message"
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/prescriptionAMIB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <ImageButton
-        android:id="@+id/prescriptionMsgIB"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:id="@+id/sendAMIB"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/message_button_bg"
-        android:contentDescription="@string/prescription_image"
-        android:src="@drawable/add_prescription_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sendMsgIB" />
-
-    <ImageButton
-        android:id="@+id/sendMsgIB"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/message_button_bg"
+        android:background="@drawable/button_bg_circle_cyan"
         android:contentDescription="@string/send_image"
-        android:src="@drawable/send_white"
+        android:scaleType="center"
+        android:src="@drawable/send_white_new"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

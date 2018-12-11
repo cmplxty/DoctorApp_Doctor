@@ -1,6 +1,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/blogDBCV"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,9 +22,9 @@
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/bloggerProfileImageBCIV"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/noperson"
@@ -31,58 +32,61 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/blogWriterNameBIV"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="8dp"
-            android:text="Doctor Name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/blogWriterDetailBIV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circleImageView2"
-            app:layout_constraintTop_toTopOf="@+id/circleImageView2"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <TextView
-            android:id="@+id/blogWriterDetailBIV"
+            android:id="@+id/blogWriterNameBTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:ellipsize="end"
             android:lines="1"
+            android:text="Doctor Name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/blogWriterDetailBIV"
+            app:layout_constraintEnd_toStartOf="@+id/dateBTV"
+            app:layout_constraintStart_toEndOf="@+id/bloggerProfileImageBCIV"
+            app:layout_constraintTop_toTopOf="@+id/bloggerProfileImageBCIV"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/blogWriterDetailBIV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:lines="1"
             android:text="Specialist"
             android:textColor="@android:color/black"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/circleImageView2"
-            app:layout_constraintEnd_toStartOf="@+id/dateBTV"
-            app:layout_constraintStart_toEndOf="@+id/circleImageView2"
-            app:layout_constraintTop_toBottomOf="@+id/blogWriterNameBIV" />
+            app:layout_constraintBottom_toBottomOf="@+id/bloggerProfileImageBCIV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bloggerProfileImageBCIV"
+            app:layout_constraintTop_toBottomOf="@+id/blogWriterNameBTV" />
 
         <TextView
             android:id="@+id/dateBTV"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:text="21/01/2018"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/blogWriterDetailBIV"
+            app:layout_constraintBottom_toBottomOf="@+id/blogWriterNameBTV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/blogWriterDetailBIV" />
+            app:layout_constraintTop_toTopOf="@+id/blogWriterNameBTV" />
 
         <ImageView
-            android:id="@+id/blogImageDBIV"
+            android:id="@+id/blogPosterBIV"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="8dp"
-            android:background="#e9e9e9"
+            android:scaleType="fitCenter"
+            android:background="@color/colorLightGray"
             android:src="@drawable/no_image_available"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circleImageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/bloggerProfileImageBCIV" />
 
         <ImageView
             android:id="@+id/blogSymbolBIV"
@@ -91,12 +95,12 @@
             android:layout_marginEnd="12dp"
             android:scaleType="centerCrop"
             android:src="@drawable/blog_cyan"
-            app:layout_constraintBottom_toBottomOf="@+id/blogTitleBTV"
+            app:layout_constraintBottom_toBottomOf="@+id/blogContentBTV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/blogTitleBTV" />
+            app:layout_constraintTop_toTopOf="@+id/blogTitleMBTV" />
 
         <TextView
-            android:id="@+id/blogTitleBTV"
+            android:id="@+id/blogTitleMBTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -105,17 +109,19 @@
             android:text="Blog Title"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
+            android:lines="1"
+            android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@+id/blogContentBTV"
             app:layout_constraintEnd_toStartOf="@+id/blogSymbolBIV"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/blogImageDBIV"
+            app:layout_constraintTop_toBottomOf="@+id/blogPosterBIV"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/blogContentBTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="12dp"
             android:ellipsize="end"

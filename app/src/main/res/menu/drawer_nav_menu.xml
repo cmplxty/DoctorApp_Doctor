@@ -56,17 +56,35 @@
                     android:id="@+id/prescriptionPatientDMI"
                     android:icon="@drawable/prescription_cyan"
                     android:title="@string/prescription" />
+
+                <item
+                    android:id="@+id/blogDMI"
+                    android:icon="@drawable/blog_cyan"
+                    android:title="@string/blog"
+                    />
+
+                <item
+                    android:id="@+id/assistantDMI"
+                    android:icon="@drawable/assistant_cyan"
+                    android:title="@string/assistant"
+                    />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Others">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/prefernceDMI"
+                    android:icon="@drawable/preference_cyan_0"
+                    android:title="@string/preference" />
             </group>
 
             <item
-                android:id="@+id/blogDMI"
-                android:icon="@drawable/blog_cyan"
-                android:title="@string/blog"
-                />
-
-            <item
-                android:icon="@drawable/receptionist_cyan"
-                android:title="@string/receptionist"
+                android:id="@+id/signOutDMI"
+                android:icon="@drawable/signout_cyan_dk"
+                android:title="@string/sign_out"
                 />
         </menu>
     </item>

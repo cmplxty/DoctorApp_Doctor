@@ -1,30 +1,29 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Activities.Messenger;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.ActivityTrigger;
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.HomeActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Vars.ActivityTrigger;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Home.HomeActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Adapter.MessageRecyclerViewAdapter;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.MessageController;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.ProfileController;
-import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Message;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Patient;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Prescription;
@@ -37,9 +36,9 @@ public class MessageActivity extends AppCompatActivity {
     // Variables
     private Toolbar toolbar;
     private RecyclerView messagesAMRV;
-    private EditText messageAreaET;
-    private ImageButton prescriptionMsgIB;
-    private ImageButton sendMsgIB;
+    private EditText messageAreaAMET;
+    private ImageButton prescriptionAMIB;
+    private ImageButton sendAMIB;
 
     private Patient patient;
     private MessageRecyclerViewAdapter messageRecyclerViewAdapter;
@@ -48,12 +47,12 @@ public class MessageActivity extends AppCompatActivity {
     // Methods
     private void init() {
         toolbar = findViewById(R.id.toolbar);
-        messageAreaET = findViewById(R.id.messageAreaET);
-        prescriptionMsgIB = findViewById(R.id.prescriptionMsgIB);
-        sendMsgIB = findViewById(R.id.sendMsgIB);
+        messageAreaAMET = findViewById(R.id.messageAreaAMET);
+        prescriptionAMIB = findViewById(R.id.prescriptionAMIB);
+        messagesAMRV = findViewById(R.id.messagesAMRV);
+        sendAMIB = findViewById(R.id.sendAMIB);
 
         messageRecyclerViewAdapter = new MessageRecyclerViewAdapter();
-        messagesAMRV = findViewById(R.id.messagesAMRV);
         messagesAMRV.setLayoutManager(new LinearLayoutManager(RefActivity.refACActivity.get()));
         messagesAMRV.setHasFixedSize(true);
         messagesAMRV.setAdapter(messageRecyclerViewAdapter);
@@ -61,12 +60,18 @@ public class MessageActivity extends AppCompatActivity {
         patient = getIntent().getParcelableExtra(Vars.Connector.MESSAGE_ACTIVITY_DATA);
     }
 
-    private void initToolbar() {
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
         toolbar.setTitle(patient.getName());
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
+
     private void event() {
-        sendMsgIB.setOnClickListener(new View.OnClickListener() {
+        sendAMIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!getMessage().equals("")) {
@@ -79,7 +84,7 @@ public class MessageActivity extends AppCompatActivity {
         });
 
 
-        prescriptionMsgIB.setOnClickListener(new View.OnClickListener() {
+        prescriptionAMIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String did = ProfileController.GetLocalProfile().getId();
@@ -110,13 +115,18 @@ public class MessageActivity extends AppCompatActivity {
                     return;
                 }
 
-                List<Message> messages = (List<Message>) object;
-                if (messages != null) {
+                if (object != null) {
+                    List<Message> messages = new ArrayList<>();
+                    for (Object message : (List<?>) object) {
+                        messages.add((Message) message);
+                    }
+
                     messageRecyclerViewAdapter.setPatientAndDoctorId(patient.getId(), Vars.appFirebase.getCurrentUser().getUid());
                     messageRecyclerViewAdapter.setMessages(messages);
                     messageRecyclerViewAdapter.notifyDataSetChanged();
                     messagesAMRV.scrollToPosition(messages.size() - 1);
                 }
+
             }
         });
     }
@@ -125,14 +135,14 @@ public class MessageActivity extends AppCompatActivity {
      * Get MessageUserList
      * */
     private String getMessage() {
-        return messageAreaET.getText().toString();
+        return messageAreaAMET.getText().toString();
     }
 
     /*
      * Reset MessageUserList
      * */
     private void resetMessage() {
-        messageAreaET.setText("");
+        messageAreaAMET.setText("");
     }
     // Methods
 
@@ -141,12 +151,22 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         RefActivity.updateACActivity(this);
-
         init();
-        initToolbar();
+        setupToolbar();
         event();
-
         loadMessages();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                onBackPressed();
+                break;
+            }
+        }
+
+        return true;
     }
 
     @Override

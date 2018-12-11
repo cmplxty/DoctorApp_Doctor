@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorSecondaryDark</item>
     </style>
 
     <style name="AppTheme.PopUpTheme" parent="ThemeOverlay.AppCompat.Light">
@@ -15,6 +16,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorSecondaryDark</item>
     </style>
 
     <style name="AppTheme.Fullscreen" parent="AppTheme">

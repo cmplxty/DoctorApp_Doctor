@@ -9,18 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.ActivityTrigger;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
-import app.doctor.dmcx.app.da.project.doctorapp.Fragments.AppFragmentManager;
+import app.doctor.dmcx.app.da.project.doctorapp.Fragments.AppSupportFragmentManager;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.FragmentNames;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.Home.PrescriptionListFragment;
-import app.doctor.dmcx.app.da.project.doctorapp.Model.Patient;
-import app.doctor.dmcx.app.da.project.doctorapp.Model.Prescription;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.PrescriptionPatient;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
 import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
@@ -58,7 +54,7 @@ public class PrescriptionPatientListRecyclerViewAdapter extends RecyclerView.Ada
                 Bundle bundle = new Bundle();
                 bundle.putString(Vars.Connector.PRESCRIPTION_LIST_FRAGMENT_DATA, prescriptionPatients.get(itemPosition).getPatient_id());
 
-                AppFragmentManager.replace(RefActivity.refACActivity.get(), AppFragmentManager.homeFragmentContainer, AppFragmentManager.addArgumentFragment(new PrescriptionListFragment(), bundle), FragmentNames.Prescription);
+                AppSupportFragmentManager.replace(RefActivity.refACActivity.get(), AppSupportFragmentManager.homeFragmentContainer, AppSupportFragmentManager.addArgumentFragment(new PrescriptionListFragment(), bundle), FragmentNames.Prescription);
             }
         });
 

@@ -17,9 +17,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.ActivityTrigger;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Vars.ActivityTrigger;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.PrescriptionController;
 import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Message;
@@ -103,19 +103,21 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
             imageParams.gravity = Gravity.END;
             generalParams.gravity = Gravity.END;
 
-            holder.messageImage.setBackgroundColor(Color.parseColor("#212121"));
+            holder.messageImage.setBackground(RefActivity.refACActivity.get().getDrawable(R.drawable.message_from));
             holder.messageImage.setLayoutParams(imageParams);
 
-            holder.messageContent.setBackgroundColor(Color.parseColor("#212121"));
+            holder.messageContent.setBackground(RefActivity.refACActivity.get().getDrawable(R.drawable.message_from));
+            holder.messageContent.setTextColor(Color.BLACK);
             holder.messageContent.setLayoutParams(generalParams);
         } else {
             imageParams.gravity = Gravity.START;
             generalParams.gravity = Gravity.START;
 
-            holder.messageImage.setBackgroundColor(Color.parseColor("#1EC8C8"));
+            holder.messageImage.setBackground(RefActivity.refACActivity.get().getDrawable(R.drawable.message_to));
             holder.messageImage.setLayoutParams(imageParams);
 
-            holder.messageContent.setBackgroundColor(Color.parseColor("#1EC8C8"));
+            holder.messageContent.setBackground(RefActivity.refACActivity.get().getDrawable(R.drawable.message_to));
+            holder.messageContent.setTextColor(Color.WHITE);
             holder.messageContent.setLayoutParams(generalParams);
         }
 

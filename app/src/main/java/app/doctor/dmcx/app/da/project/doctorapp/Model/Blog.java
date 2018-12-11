@@ -5,16 +5,16 @@ import android.os.Parcelable;
 
 public class Blog implements Parcelable {
 
-    private String id = "";
-    private String blogger_id = "";
-    private String name = "";
-    private String detail = "";
-    private String image_link = "";
-    private String poster = "";
-    private String title = "";
-    private String content = "";
-    private String date = "";
-    private String timestamp = "";
+    private String id = "";         // Blog Id
+    private String blogger_id = ""; // Blogger / Doctor's Id
+    private String name = "";       // Blogger / Doctor's name
+    private String detail = "";     // Blogger / Doctor's basic details - specialist or some other
+    private String image_link = ""; // Blogger / Doctor's profile image
+    private String poster = "";     // Blog poster
+    private String title = "";      // Blog title
+    private String content = "";    // Blog content
+    private String date = "";       // Blog data
+    private String timestamp = "";  // Blog timestamp
 
     public Blog() {
     }

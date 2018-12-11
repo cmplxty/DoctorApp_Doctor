@@ -28,10 +28,10 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/blogImageBEIV"
+            android:id="@+id/blogPosterBEIV"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
+            android:background="@color/colorLightGray"
             android:src="@drawable/wallpaper_add_shadow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/blogImageBEIV" />
+            app:layout_constraintTop_toBottomOf="@+id/blogPosterBEIV" />
 
         <EditText
             android:id="@+id/blogContentBEET"

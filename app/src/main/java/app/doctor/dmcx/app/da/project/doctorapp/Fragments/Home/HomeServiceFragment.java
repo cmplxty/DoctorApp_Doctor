@@ -22,8 +22,8 @@ import java.util.List;
 import app.doctor.dmcx.app.da.project.doctorapp.Adapter.HomeServiceRecyclerViewAdapter;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.HomeServiceController;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
-import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallPatient;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICall;
 import app.doctor.dmcx.app.da.project.doctorapp.Interface.IHomeServiceEvent;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.HomeService;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
@@ -34,9 +34,7 @@ import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
 
     // Variables
-    private TextView homeServiceRegsiterHSTV;
     private TextView informationHSTV;
-    private Button registerHSBTN;
     private RecyclerView homeServiceRequestsHSRV;
     private RotateLoading mLoadingRL;
 
@@ -44,15 +42,12 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
     private boolean isDoctorRegistered = false;
     private IHomeServiceEvent iHomeServiceEvent;
 
-    private ICallPatient iCallPatient;
+    private ICall iCall;
     // Variables
 
     // Methods
     private void init(View view) {
-        homeServiceRegsiterHSTV = view.findViewById(R.id.homeServiceRegsiterHSTV);
         informationHSTV = view.findViewById(R.id.informationHSTV);
-        registerHSBTN = view.findViewById(R.id.registerHSBTN);
-        homeServiceRegsiterHSTV = view.findViewById(R.id.homeServiceRegsiterHSTV);
         homeServiceRequestsHSRV = view.findViewById(R.id.homeServiceRequestsHSRV);
         mLoadingRL = view.findViewById(R.id.mLoadingRL);
 
@@ -63,7 +58,7 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
         homeServiceRequestsHSRV.setHasFixedSize(true);
         homeServiceRequestsHSRV.setAdapter(homeServiceRecyclerViewAdapter);
 
-        iCallPatient = homeServiceRecyclerViewAdapter.getICallPatient();
+        iCall = homeServiceRecyclerViewAdapter.getICallPatient();
 
         HomeServiceController.CheckForRegisteredHomeServiceDoctor(new IAction() {
             @Override
@@ -78,13 +73,9 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
 
     private void updateUIElements() {
         if (!isDoctorRegistered) {
-            homeServiceRegsiterHSTV.setText("You have to register for this Service.");
-            informationHSTV.setText("Register, to get HS requests.");
-            registerHSBTN.setText("Register");
+            informationHSTV.setText("Register, to get home service requests. Goto preference.");
         } else {
-            homeServiceRegsiterHSTV.setText("You are registered for this service. You can get requests here.");
             informationHSTV.setText("No requests as of now.");
-            registerHSBTN.setText("Unregister");
         }
     }
 
@@ -96,24 +87,6 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
             informationHSTV.setVisibility(View.VISIBLE);
             homeServiceRequestsHSRV.setVisibility(View.GONE);
         }
-    }
-
-    private void event() {
-        registerHSBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isDoctorRegistered) {
-                    HomeServiceController.UnregisterHomeService();
-                } else {
-                    showRegisterDialog();
-                }
-
-            }
-        });
-    }
-
-    private void showRegisterDialog() {
-        AppDialog.HomeServiceDialog.register();
     }
 
     private void loadHomeServices() {
@@ -150,7 +123,6 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
     @Override
     public void onFinializeRegister() {
         updateUIElements();
-        event();
         loadHomeServices();
     }
 
@@ -162,7 +134,7 @@ public class HomeServiceFragment extends Fragment implements IHomeServiceEvent {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(RefActivity.refACActivity.get(), ValidationText.PermissionNeededForDirectCall, Toast.LENGTH_SHORT).show();
             } else {
-                iCallPatient.call();
+                iCall.call();
             }
         }
     }

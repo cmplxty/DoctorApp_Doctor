@@ -13,4 +13,5 @@ public class FragmentNames {
     public static final String ProfileEdit = "Fragment Profile Edit";
     public static final String AudioCall = "Fragment Audio Call";
     public static final String Blog = "Fragment Blog";
+    public static final String Assistant = "Fragment Assistant";
 }

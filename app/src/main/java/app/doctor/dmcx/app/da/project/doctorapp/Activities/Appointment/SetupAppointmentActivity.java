@@ -5,10 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -20,28 +22,27 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.HomeActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Home.HomeActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Adapter.AppointmentSetupRecyclerViewAdapter;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.AppointmentController;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Controller.ProfileController;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAppointment;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.APDoctor;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Appointment;
+import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
+import app.doctor.dmcx.app.da.project.doctorapp.Utility.ErrorText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
 import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
 public class SetupAppointmentActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, IAppointment {
 
     // Variables
-    private TextView doctorNameAPTV;
-    private TextView doctorPhoneAPTV;
-    private TextView doctorSpecialistAPTV;
-    private TextView doctorClinicLocationAPTV;
+    private Toolbar toolbar;
     private EditText timeToAPET;
     private EditText timeFromAPET;
-    private EditText doctorApptPasswordAPTV;
     private Spinner toAmPmAPSP;
     private Spinner fromAmPmAPSP;
     private EditText daysAPET;
@@ -52,23 +53,18 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
     private TextView wedTV;
     private TextView thuTV;
     private TextView friTV;
-    private Button cancelAPBTN;
-    private Button completeAPBTN;
     private ImageButton addAppointmentIB;
     private RecyclerView appointmentDayTimeListAPRV;
 
     private AppointmentSetupRecyclerViewAdapter appointmentSetupRecyclerViewAdapter;
     private List<String> days;
     private List<Appointment> appointments;
+    private Doctor doctor;
     // Variables
 
     // Methods
     private void init() {
-        doctorNameAPTV = findViewById(R.id.doctorNameAPTV);
-        doctorPhoneAPTV = findViewById(R.id.doctorPhoneAPTV);
-        doctorSpecialistAPTV = findViewById(R.id.doctorApptPasswordAPTV);
-        doctorClinicLocationAPTV = findViewById(R.id.doctorClinicLocationAPTV);
-        doctorApptPasswordAPTV = findViewById(R.id.doctorApptPasswordAPTV);
+        toolbar = findViewById(R.id.toolbar);
         timeFromAPET = findViewById(R.id.timeFromAPET);
         timeToAPET = findViewById(R.id.timeToAPET);
         toAmPmAPSP = findViewById(R.id.toAmPmAPSP);
@@ -81,8 +77,6 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
         thuTV = findViewById(R.id.thuTV);
         friTV = findViewById(R.id.friTV);
         daysAPET = findViewById(R.id.daysAPET);
-        cancelAPBTN = findViewById(R.id.cancelAPBTN);
-        completeAPBTN = findViewById(R.id.completeAPBTN);
         addAppointmentIB = findViewById(R.id.addAppointmentIB);
         appointmentDayTimeListAPRV = findViewById(R.id.appointmentDayTimeListAPRV);
 
@@ -91,9 +85,26 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
 
         days = new ArrayList<>();
         appointments = new ArrayList<>();
+        doctor = new Doctor();
 
         appointmentSetupRecyclerViewAdapter = new AppointmentSetupRecyclerViewAdapter(this);
         appointmentDayTimeListAPRV.setAdapter(appointmentSetupRecyclerViewAdapter);
+
+        ProfileController.CheckForProfileData(new IAction() {
+            @Override
+            public void onCompleteAction(Object object) {
+                if (object != null)
+                    doctor = (Doctor) object;
+            }
+        });
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void event() {
@@ -109,20 +120,6 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
             @Override
             public void onClick(View view) {
                 addAppointmentSet();
-            }
-        });
-
-        cancelAPBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        completeAPBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onComplete();
             }
         });
 
@@ -154,7 +151,7 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
         final String toAmPm = toAmPmAPSP.getSelectedItem().toString();
         final String fromAmPm = fromAmPmAPSP.getSelectedItem().toString();
 
-        final String days = daysAPET.getText().toString();
+        final String days = daysAPET.getText().toString().trim();
         final String time = timeFrom + " " + fromAmPm + " - " + timeTo + " " + toAmPm;
 
         if (days.equals("") || timeFrom.equals("") || timeTo.equals("")) {
@@ -167,30 +164,32 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
         appointmentSetupRecyclerViewAdapter.notifyDataSetChanged();
     }
 
-    private void onComplete() {
-        Gson gson = new Gson();
+    private void onSave() {
+        if (doctor != null) {
+            Gson gson = new Gson();
+            final String name = doctor.getName();
+            final String phone = doctor.getPhone();
+            final String specialist = doctor.getSpecialist();
+            final String clinic = doctor.getChamber();
+            final String appoinments = gson.toJson(appointments);
+            final String email = Vars.appFirebase.getCurrentUser().getEmail();
 
-        final String name = doctorNameAPTV.getText().toString();
-        final String phone = doctorPhoneAPTV.getText().toString();
-        final String specialist = doctorSpecialistAPTV.getText().toString();
-        final String clinic = doctorClinicLocationAPTV.getText().toString();
-        final String passcode = doctorApptPasswordAPTV.getText().toString();
-        final String appoinments = gson.toJson(appointments);
-        final String email = Vars.appFirebase.getCurrentUser().getEmail();
-
-        if (name.equals("") || phone.equals("") || specialist.equals("") || clinic.equals("") || passcode.equals("") || appoinments.equals("[]")) {
-            Toast.makeText(RefActivity.refACActivity.get(), ValidationText.PleaseFillAllTheFields, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        AppointmentController.SetupAppointmentDoctor(new APDoctor(name, specialist, phone, clinic, appoinments, email, passcode), new IAction() {
-            @Override
-            public void onCompleteAction(Object object) {
-                if ((boolean) object) {
-                    onBackPressed();
-                }
+            if (name.equals("") || phone.equals("") || specialist.equals("") || clinic.equals("") || appoinments.equals("[]")) {
+                Toast.makeText(RefActivity.refACActivity.get(), ValidationText.PleaseFillAllTheFields, Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
+
+            AppointmentController.SetupAppointmentDoctor(new APDoctor(name, specialist, phone, clinic, appoinments, email), new IAction() {
+                @Override
+                public void onCompleteAction(Object object) {
+                    if ((boolean) object) {
+//                        onBackPressed();
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(RefActivity.refACActivity.get(), ErrorText.FaileToLoadProfileDataTryAgain, Toast.LENGTH_SHORT).show();
+        }
     }
     // Methods
 
@@ -201,7 +200,28 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
         RefActivity.updateACActivity(this);
 
         init();
+        setupToolbar();
         event();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appointment_setup_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.saveASMI:
+                onSave();
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+
+        return true;
     }
 
     @Override
@@ -232,6 +252,13 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
     }
 
     @Override
+    protected void onDestroy() {
+        appointmentDayTimeListAPRV = null;
+
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         RefActivity.updateACActivity(HomeActivity.instance.get());
         super.onBackPressed();
@@ -254,9 +281,9 @@ public class SetupAppointmentActivity extends AppCompatActivity implements View.
                 }
             } else if (value > 12) {
                 if (timeFromAPET.getText().toString().equals(charSequence.toString())) {
-                    timeFromAPET.setText("12");
+                    timeToAPET.setText(new StringBuilder("12"));
                 } else if (timeToAPET.getText().toString().equals(charSequence.toString())) {
-                    timeToAPET.setText("12");
+                    timeToAPET.setText(new StringBuilder("12"));
                 }
             }
         }

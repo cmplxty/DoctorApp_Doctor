@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.victor.loading.rotate.RotateLoading;
 
@@ -18,7 +17,7 @@ import java.util.List;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Adapter.PrescriptionPatientListRecyclerViewAdapter;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.PrescriptionController;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.PrescriptionPatient;
 import app.doctor.dmcx.app.da.project.doctorapp.R;

@@ -9,13 +9,16 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.HomeActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Home.HomeActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Vars.ActivityTrigger;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
-import app.doctor.dmcx.app.da.project.doctorapp.Firebase.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Interface.INavHeader;
 import app.doctor.dmcx.app.da.project.doctorapp.LocalDatabase.LDBModel;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
+import app.doctor.dmcx.app.da.project.doctorapp.Utility.ErrorText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingDialog;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
@@ -23,14 +26,13 @@ import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
 public class ProfileController {
 
-    private static void LoadProfile(final IAction action) {
+    public static void LoadProfile(final IAction action) {
         INavHeader iNavHeader = null;
         if (RefActivity.refACActivity.get() instanceof HomeActivity) {
             iNavHeader = (HomeActivity) RefActivity.refACActivity.get();
         }
 
         final INavHeader finalINavHeader = iNavHeader;
-
         final AlertDialog alertDialog = LoadingDialog.on(LoadingText.RetrivingProfile);
         Vars.appFirebase.getUserProfileData(new ICallback() {
             @Override
@@ -39,7 +41,8 @@ public class ProfileController {
 
                 if (!isSuccessful) {
                     if (object instanceof String) {
-                        action.onCompleteAction(object);
+                        Toast.makeText(RefActivity.refACActivity.get(), ErrorText.ProfileDataFetchAttempFailed, Toast.LENGTH_SHORT).show();
+                        action.onCompleteAction(null);
                     }
                 } else {
                     if (object instanceof Doctor) {
@@ -115,6 +118,12 @@ public class ProfileController {
         } else {
             UpdateUserDetail(map);
         }
+    }
+
+    public static void SignOut() {
+        AuthController.SignOut();
+        Vars.localDB.clearLocalDB();
+        ActivityTrigger.AuthActivity();
     }
 
     private static void UpdateUserDetail(Map<String, Object> map) {

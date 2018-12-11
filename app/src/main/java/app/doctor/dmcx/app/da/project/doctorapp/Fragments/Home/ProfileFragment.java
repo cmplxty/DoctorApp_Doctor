@@ -13,12 +13,12 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.ActivityTrigger;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Vars.ActivityTrigger;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.AuthController;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.ProfileController;
-import app.doctor.dmcx.app.da.project.doctorapp.Fragments.AppFragmentManager;
+import app.doctor.dmcx.app.da.project.doctorapp.Fragments.AppSupportFragmentManager;
 import app.doctor.dmcx.app.da.project.doctorapp.Fragments.FragmentNames;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
@@ -30,16 +30,14 @@ public class ProfileFragment extends Fragment {
 
     // Variables
     private CircleImageView doctorProfilePicCIV;
-    private ImageView doctorEditProfileIV;
     private TextView doctorNameTV;
     private TextView doctorEmailTV;
     private TextView doctorPhoneTV;
-    private TextView doctorSpecialistTV; //
+    private TextView doctorSpecialistTV;
     private TextView doctorChamberTV;
     private TextView doctorCountryTV;
     private TextView doctorAboutTV;
     private TextView doctorHospitalTV;
-    private Button signOutPBTN;
 
     private Doctor doctor;
     // Variables
@@ -47,7 +45,6 @@ public class ProfileFragment extends Fragment {
     // Methods
     private void init(View view) {
         doctorProfilePicCIV = view.findViewById(R.id.doctorProfilePicCIV);
-        doctorEditProfileIV = view.findViewById(R.id.doctorEditProfileIV);
         doctorNameTV = view.findViewById(R.id.doctorNameTV);
         doctorEmailTV = view.findViewById(R.id.doctorEmailTV);
         doctorPhoneTV = view.findViewById(R.id.doctorPhoneTV);
@@ -56,31 +53,10 @@ public class ProfileFragment extends Fragment {
         doctorCountryTV = view.findViewById(R.id.doctorCountryTV);
         doctorAboutTV = view.findViewById(R.id.doctorAboutTV);
         doctorHospitalTV = view.findViewById(R.id.doctorHospitalTV);
-        signOutPBTN = view.findViewById(R.id.signOutPBTN);
-    }
-
-    private void event() {
-        doctorEditProfileIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Vars.Connector.PROFILE_EDIT_FRAGMENT_DATA, doctor);
-                AppFragmentManager.replace(RefActivity.refACActivity.get(), AppFragmentManager.homeFragmentContainer, new ProfileEditFragment(), FragmentNames.ProfileEdit, bundle);
-            }
-        });
-
-        signOutPBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AuthController.SignOut();
-                Vars.localDB.clearLocalDB();
-                ActivityTrigger.AuthActivity();
-            }
-        });
     }
 
     private void load() {
-        ProfileController.LoadLocalProfile(new IAction() {
+        ProfileController.CheckForProfileData(new IAction() {
             @Override
             public void onCompleteAction(Object object) {
                 doctor = (Doctor) object;
@@ -107,7 +83,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment_profile, container, false);
         init(view);
-        event();
         load();
         return view;
     }

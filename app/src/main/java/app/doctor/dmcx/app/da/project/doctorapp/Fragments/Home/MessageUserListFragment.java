@@ -18,7 +18,7 @@ import java.util.List;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Adapter.MessageUserRecyclerViewAdapter;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.MessageController;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.MessageUser;
 import app.doctor.dmcx.app.da.project.doctorapp.R;

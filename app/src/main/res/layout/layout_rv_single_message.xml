@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,7 +13,7 @@
         android:maxWidth="250dp"
         android:textSize="18sp"
         android:padding="12dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/message_to"
         android:text="This is formal message of a user! This is formal message of a user!"
         android:textColor="@android:color/white"
         android:visibility="visible"
@@ -31,20 +31,22 @@
         android:paddingBottom="5dp"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/message_to"
         android:scaleType="centerCrop"
         android:cropToPadding="true"
         android:contentDescription="Message Image" />
 
     <Button
         android:id="@+id/viewPrescriptionBTN"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Prescription&#10;25-02-2018"
-        android:padding="10dp"
-        android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
-        />
+        android:layout_gravity="center"
+        android:background="@drawable/message_prescription"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="View Prescription"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

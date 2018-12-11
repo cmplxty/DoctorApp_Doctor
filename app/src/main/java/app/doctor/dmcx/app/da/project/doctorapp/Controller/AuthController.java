@@ -3,7 +3,9 @@ package app.doctor.dmcx.app.da.project.doctorapp.Controller;
 import android.widget.Toast;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
-import app.doctor.dmcx.app.da.project.doctorapp.Firebase.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Utility.ErrorText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingDialog;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
@@ -55,6 +57,19 @@ public class AuthController {
 
     public static void SignOut() {
         Vars.appFirebase.signOut();
+    }
+
+    public static void ForgetPassword(String email) {
+        Vars.appFirebase.forgetPassword(email, new ICallback() {
+            @Override
+            public void onCallback(boolean isSuccessful, Object object) {
+                if (isSuccessful) {
+                    Toast.makeText(RefActivity.refACActivity.get(), ValidationText.EmailSent, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RefActivity.refACActivity.get(), ErrorText.EmailNotSent, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public static boolean isUserLoggedIn() {

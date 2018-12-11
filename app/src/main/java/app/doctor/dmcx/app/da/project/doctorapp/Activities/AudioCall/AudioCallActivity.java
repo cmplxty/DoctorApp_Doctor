@@ -1,46 +1,33 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Activities.AudioCall;
 
-import android.Manifest;
-import android.animation.ValueAnimator;
 import android.app.NotificationManager;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.sinch.android.rtc.PushPair;
-import com.sinch.android.rtc.Sinch;
 import com.sinch.android.rtc.SinchClient;
-import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallClient;
 import com.sinch.android.rtc.calling.CallClientListener;
 import com.sinch.android.rtc.calling.CallListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.BaseActivity;
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.HomeActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Home.BaseActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Home.HomeActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.AudioCallController;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.LocalDatabase.LDBModel;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Notification;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Patient;
@@ -64,6 +51,7 @@ public class AudioCallActivity extends BaseActivity {
     private Patient patient;
     private String patientId;
     private CallHandler callHandler;
+    private boolean isCallConnected = false;
     // Variables
 
     // Class
@@ -111,7 +99,8 @@ public class AudioCallActivity extends BaseActivity {
         rejectCallFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cancelNotification();
+                isCallConnected = false;
+
                 rejectCall();
                 finish();
             }
@@ -120,6 +109,9 @@ public class AudioCallActivity extends BaseActivity {
         acceptCallFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isCallConnected = true;
+                AudioCallController.SaveCallHistory(patientId, AFModel.received);
+
                 updateUi();
                 receiveCall();
             }
@@ -128,7 +120,8 @@ public class AudioCallActivity extends BaseActivity {
         declineCallFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cancelNotification();
+                isCallConnected = true;
+
                 rejectCall();
                 finish();
             }
@@ -213,6 +206,10 @@ public class AudioCallActivity extends BaseActivity {
 
         @Override
         public void onCallEnded(Call endCall) {
+            if (!isCallConnected) {
+                AudioCallController.SaveCallHistory(patientId, AFModel.missed);
+            }
+
             cancelNotification();
             rejectCall();
             setVolumeControlStream(AudioManager.USE_DEFAULT_STREAM_TYPE);

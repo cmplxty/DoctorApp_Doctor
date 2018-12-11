@@ -37,4 +37,17 @@ public class ValidationText {
     public static final String UpdateSuccessful = "Update Successful.";
     public static final String StatusChanged = "Status Changed!";
     public static final String SameDeviceConfict = "Same device conflict.";
+    public static final String BlogAdded = "Blog added!";
+    public static final String BlogUpdated = "Blog updated!";
+    public static final String TitleAndContentBothNeeded = "Blog title and content need to proceed.";
+    public static final String RequiredFieldsAreNeedToFill = "Required fields are need to filled!";
+    public static final String AccountCreated = "Account Created!";
+    public static final String NoteSent = "Note sent!";
+    public static final String PleaseWriteSomeNote = "Please! Enter some note to send.";
+    public static final String AssistantDeleted = "Assistant deleted.";
+    public static final String UserIsSignedInSignOutRequired = "User is signed in! Sign out required.";
+    public static final String HistoryDeleted = "History Deleted!";
+    public static final String EmailSent = "Email sent! Check your email.";
+    public static final String EnterEmail = "Enter email.";
+    public static final String SeedingFalse = "Seeding False!";
 }

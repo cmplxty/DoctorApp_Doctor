@@ -2,6 +2,8 @@ package app.doctor.dmcx.app.da.project.doctorapp.Utility;
 
 import android.util.Patterns;
 
+import java.util.List;
+
 public class Validator {
 
     public static boolean empty(String value) {

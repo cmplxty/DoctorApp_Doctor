@@ -18,7 +18,11 @@ public class AFModel {
     public static final String notification = "notification";
     public static final String token = "token";
     public static final String blog = "blog";
+    public static final String blog_image = "blog_image";
     public static final String audio_call_device = "audio_call_device";
+    public static final String audio_call_history = "audio_call_history";
+    public static final String assistant = "assistant";
+    public static final String assistant_note = "assistant_note";
 
     public static final String token_id = "token_id";
     public static final String name = "name";
@@ -61,9 +65,26 @@ public class AFModel {
     public static final String audio_call = "audio_call";
     public static final String doctor_id = "doctor_id";
     public static final String title = "title";
+    public static final String blogger_id = "blogger_id";
+    public static final String poster = "poster";
+    public static final String date = "date";
+    public static final String detail = "detail";
+    public static final String password = "password";
+    public static final String doctor_email = "doctor_email";
+    public static final String doctor_password = "doctor_password";
+    public static final String status = "status";
+    public static final String call_status = "call_status";
+    public static final String received = "received";
+    public static final String missed = "missed";
+    public static final String caller_id = "caller_id";
+    public static final String note = "note";
+    public static final String auth_status = "auth_status";
+    public static final String sign_in = "sign_in";
+    public static final String sign_out = "sign_out";
+    public static final String device_id = "device_id";
+    public static final String patient_id = "patient_id";
 
     public static final String deflt = "defaultx01";
-    public static final String passcode = "passcode";
 
     // External
     public static class prescription_variables {

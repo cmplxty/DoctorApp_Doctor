@@ -1,6 +1,5 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Controller;
 
-import android.support.annotation.VisibleForTesting;
 import android.util.ArrayMap;
 import android.widget.Toast;
 
@@ -8,7 +7,9 @@ import java.util.Map;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
-import app.doctor.dmcx.app.da.project.doctorapp.Firebase.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Model.HomeService;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ErrorText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingDialog;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingText;
@@ -28,17 +29,10 @@ public class HomeServiceController {
         });
     }
 
-    public static void RegisterHomeService(String name, String location, String phone, String specialist, final String time) {
-        Map<String, Object> values = new ArrayMap<>();
-        values.put(AFModel.name, name);
-        values.put(AFModel.location, location);
-        values.put(AFModel.phone, phone);
-        values.put(AFModel.specialist, specialist);
-        values.put(AFModel.time, time);
-
+    public static void RegisterHomeService(HomeService homeService) {
         LoadingDialog.start(LoadingText.PleaseWait);
 
-        Vars.appFirebase.registerHomeService(values, new ICallback() {
+        Vars.appFirebase.registerHomeService(homeService, new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
                 LoadingDialog.stop();

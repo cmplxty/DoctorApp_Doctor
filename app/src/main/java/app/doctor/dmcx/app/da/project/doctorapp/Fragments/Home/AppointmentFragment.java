@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,36 +18,30 @@ import com.victor.loading.rotate.RotateLoading;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.ActivityTrigger;
 import app.doctor.dmcx.app.da.project.doctorapp.Adapter.AppointmentRecyclerViewAdapter;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.AppointmentController;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
-import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAppointmentEvent;
-import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallPatient;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICall;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.APRequest;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
 import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 
-public class AppointmentFragment extends Fragment implements IAppointmentEvent {
+public class AppointmentFragment extends Fragment {
 
     // Variables
     private RotateLoading mLoadingRL;
-    private Button setUpApptHSBTN;
     private RecyclerView appointmentAPRV;
     private TextView noDataFoundTV;
 
     private AppointmentRecyclerViewAdapter appointmentRecyclerViewAdapter;
-    private boolean isAppointmentDoctor;
-    private IAppointmentEvent iAppointmentEvent;
-    private ICallPatient iCallPatient;
+    private ICall iCall;
     // Variables
 
     // Methods
     private void init(View view) {
         mLoadingRL = view.findViewById(R.id.mLoadingRL);
-        setUpApptHSBTN = view.findViewById(R.id.setUpApptHSBTN);
         appointmentAPRV = view.findViewById(R.id.appointmentAPRV);
         noDataFoundTV = view.findViewById(R.id.noDataFoundTV);
 
@@ -57,27 +50,20 @@ public class AppointmentFragment extends Fragment implements IAppointmentEvent {
         appointmentAPRV.setHasFixedSize(true);
         appointmentAPRV.setAdapter(appointmentRecyclerViewAdapter);
 
-        isAppointmentDoctor = false;
-        iAppointmentEvent = this;
-        iCallPatient = appointmentRecyclerViewAdapter.getiCallPatient();
+        iCall = appointmentRecyclerViewAdapter.getiCallPatient();
 
         AppointmentController.CheckAppointmentDoctor(new IAction() {
             @Override
             public void onCompleteAction(Object object) {
-                isAppointmentDoctor = (boolean) object;
-                iAppointmentEvent.onFinalize();
+                if (!(Boolean) object) {
+                    noDataFoundTV.setText(new StringBuilder("Need to setup an appointment account. Go to prefenrece."));
+                } else {
+                    noDataFoundTV.setText(new StringBuilder("No appointment received yet..."));
+                }
             }
         });
 
         AppointmentController.UpdateNotViewedToViewedAppointment();
-    }
-
-    private void updateUiElements() {
-        if (isAppointmentDoctor) {
-            setUpApptHSBTN.setText("Remove");
-        } else {
-            setUpApptHSBTN.setText("Setup");
-        }
     }
 
     private void updateUi(List<APRequest> apRequests) {
@@ -88,18 +74,6 @@ public class AppointmentFragment extends Fragment implements IAppointmentEvent {
             noDataFoundTV.setVisibility(View.VISIBLE);
             appointmentAPRV.setVisibility(View.GONE);
         }
-    }
-
-    private void event() {
-        setUpApptHSBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isAppointmentDoctor)
-                    ActivityTrigger.SetupAppointmentActivity();
-                else
-                    AppointmentController.RemoveAppointmentDoctor();
-            }
-        });
     }
 
     private void loadAppointments() {
@@ -131,15 +105,8 @@ public class AppointmentFragment extends Fragment implements IAppointmentEvent {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment_appointment, container, false);
         init(view);
-        return view;
-    }
-
-
-    @Override
-    public void onFinalize() {
-        updateUiElements();
-        event();
         loadAppointments();
+        return view;
     }
 
     @Override
@@ -148,7 +115,7 @@ public class AppointmentFragment extends Fragment implements IAppointmentEvent {
 
         if (requestCode == Vars.RequestCode.REQUEST_CALL_CODE_AP) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                iCallPatient.call();
+                iCall.call();
             } else {
                 Toast.makeText(RefActivity.refACActivity.get(), ValidationText.PermissionNeededForDirectCall, Toast.LENGTH_SHORT).show();
             }

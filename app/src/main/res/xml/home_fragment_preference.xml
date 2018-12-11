@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <app.doctor.dmcx.app.da.project.doctorapp.Module.CustomPreferenceCategory
+        android:title="Services">
+
+        <Preference
+            android:title="Appointment"
+            android:summary="Appointment account setup"
+            android:key="onAppointmentClickKey"
+            android:defaultValue="1"
+            />
+
+        <Preference
+            android:title="Home Service"
+            android:summary="Home service account setup"
+            android:key="onHomeServiceClickKey"
+            android:defaultValue="1"
+            />
+
+        <Preference
+            android:title="Audio Call"
+            android:summary="Audio call receiving setup."
+            android:key="onAudioCallClickKey"
+            android:defaultValue="1"
+            />
+
+    </app.doctor.dmcx.app.da.project.doctorapp.Module.CustomPreferenceCategory>
+
+    <app.doctor.dmcx.app.da.project.doctorapp.Module.CustomPreferenceCategory
+        android:title="Assistant">
+
+        <Preference
+            android:title="New Assistant"
+            android:summary="Create new assistant or receptionist"
+            android:key="onNewAssistantClickKey"
+            android:defaultValue="1"
+            />
+
+    </app.doctor.dmcx.app.da.project.doctorapp.Module.CustomPreferenceCategory>
+
+    <app.doctor.dmcx.app.da.project.doctorapp.Module.CustomPreferenceCategory
+        android:title="Ohers">
+
+        <Preference
+            android:title="Version"
+            android:summary="v 1.1.1a"
+            android:defaultValue="1"
+            />
+
+        <Preference
+            android:title="Developer"
+            android:summary="Final year project"
+            android:defaultValue="1"
+            />
+
+    </app.doctor.dmcx.app.da.project.doctorapp.Module.CustomPreferenceCategory>
+
+</PreferenceScreen>

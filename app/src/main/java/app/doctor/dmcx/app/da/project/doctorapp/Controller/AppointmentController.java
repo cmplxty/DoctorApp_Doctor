@@ -8,9 +8,9 @@ import java.util.Map;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
-import app.doctor.dmcx.app.da.project.doctorapp.Firebase.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.APDoctor;
-import app.doctor.dmcx.app.da.project.doctorapp.Utility.ErrorText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingDialog;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingText;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
@@ -38,7 +38,6 @@ public class AppointmentController {
         map.put(AFModel.specialist, apDoctor.getSpecialist());
         map.put(AFModel.appointments, apDoctor.getAppointments());
         map.put(AFModel.email, apDoctor.getEmail());
-        map.put(AFModel.passcode, apDoctor.getPasscode());
 
         Vars.appFirebase.setupAppointmentDoctor(map, new ICallback() {
             @Override
@@ -79,7 +78,8 @@ public class AppointmentController {
         Vars.appFirebase.changeRequestStatusAppointmentRequest(AFModel.cancel, patientId, new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
-                action.onCompleteAction(isSuccessful);
+                if (action != null)
+                    action.onCompleteAction(isSuccessful);
 
                 if (isSuccessful) {
                     Toast.makeText(RefActivity.refACActivity.get(), ValidationText.RequestCanceled, Toast.LENGTH_SHORT).show();
@@ -92,7 +92,8 @@ public class AppointmentController {
         Vars.appFirebase.changeRequestStatusAppointmentRequest(AFModel.accept, patientId, new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
-                action.onCompleteAction(isSuccessful);
+                if (action != null)
+                    action.onCompleteAction(isSuccessful);
 
                 if (isSuccessful) {
                     Toast.makeText(RefActivity.refACActivity.get(), ValidationText.RequestAccepted, Toast.LENGTH_SHORT).show();
@@ -101,7 +102,7 @@ public class AppointmentController {
         });
     }
 
-    public static void DeleteAppointmentRequest(String patientId, final IAction action) {
+    public static void DeleteAppointmentRequest(String patientId) {
         Vars.appFirebase.deleteAppointmentFromDoctor(patientId, new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {

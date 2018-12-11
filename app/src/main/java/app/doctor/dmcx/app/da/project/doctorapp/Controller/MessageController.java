@@ -1,5 +1,6 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Controller;
 
+import android.print.PageRange;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -9,7 +10,9 @@ import java.util.Map;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
-import app.doctor.dmcx.app.da.project.doctorapp.Firebase.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Message;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Patient;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.ErrorText;
@@ -70,7 +73,7 @@ public class MessageController {
         });
     }
 
-    public static void SendMessageText(String message, String pToUserId) {
+    public static void SendMessageText(String message, final String pToUserId) {
 
         String dFromUserId = Vars.appFirebase.getCurrentUser().getUid();
 
@@ -104,6 +107,7 @@ public class MessageController {
             public void onCallback(boolean isSuccessful, Object object) {
                 if (object instanceof String) {
                     Toast.makeText(RefActivity.refACActivity.get(), String.valueOf(object), Toast.LENGTH_SHORT).show();
+                    SendMessageNotification(pToUserId, "Message", "A message from", true);
                 } else {
                     Toast.makeText(RefActivity.refACActivity.get(), ErrorText.ErrorUnknownReturnType, Toast.LENGTH_SHORT).show();
                 }
@@ -111,8 +115,7 @@ public class MessageController {
         });
     }
 
-    public static void SendMessagePrescription(String pToUserId, String prescribeTimestamp) {
-
+    public static void SendMessagePrescription(final String pToUserId, String prescribeTimestamp) {
         String dFromUserId = Vars.appFirebase.getCurrentUser().getUid();
 
         Map<String, String> map = new HashMap<>();
@@ -145,6 +148,7 @@ public class MessageController {
             public void onCallback(boolean isSuccessful, Object object) {
                 if (object instanceof String) {
                     Toast.makeText(RefActivity.refACActivity.get(), String.valueOf(object), Toast.LENGTH_SHORT).show();
+                    SendMessageNotification(pToUserId, "Prescription", "A prescription from", true);
                 } else {
                     Toast.makeText(RefActivity.refACActivity.get(), ErrorText.ErrorUnknownReturnType, Toast.LENGTH_SHORT).show();
                 }
@@ -154,5 +158,21 @@ public class MessageController {
 
     public static void UpdateNotViewedToViewedMessage() {
         Vars.appFirebase.updateNotViewedToViewed(AFModel.message_user);
+    }
+
+    private static void SendMessageNotification(final String patientId, final String title, final String body, final boolean concatDoctor) {
+        ProfileController.CheckForProfileData(new IAction() {
+            @Override
+            public void onCompleteAction(Object object) {
+                if (object != null) {
+                    Doctor doctor = (Doctor) object;
+                    String newBody = body;
+                    if (concatDoctor) {
+                        newBody += " " + doctor.getName();
+                    }
+                    Vars.appFirebase.sendNotification(AFModel.message, title, newBody, patientId);
+                }
+            }
+        });
     }
 }

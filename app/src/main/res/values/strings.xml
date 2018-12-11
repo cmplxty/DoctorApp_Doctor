@@ -1,7 +1,7 @@
 <resources>
     <string name="default_notification_channel_id">E-Care Doctor</string>
 
-    <string name="app_name">DoctorsApp</string>
+    <string name="app_name">E-Care Doctor</string>
     <string name="dashboard">Dashboard</string>
     <string name="dashboard_cap">DASHBOARD</string>
     <string name="message">Message</string>
@@ -10,7 +10,7 @@
     <string name="audio_call">Audio Call</string>
     <string name="appointments">Appointments</string>
     <string name="blog">Blog</string>
-    <string name="receptionist">Receptionist</string>
+    <string name="assistant">Assistant</string>
     <string name="others">Others</string>
     <string name="doctor_profile_image">Doctor Profile Image</string>
     <string name="doctor_name">Dr. Jhon Doe</string>
@@ -36,7 +36,6 @@
     <string name="flag_image">Flag</string>
     <string name="dob_image">DOB</string>
     <string name="help">Help</string>
-    <string name="sign_out">Sign Out</string>
     <string name="developer_email">sadman15–5483@diu.edu.bd</string>
     <string name="your_all_appointments">All your appointment</string>
     <string name="wooops_you_don_t_have_any_appointments">You don\'t have any appointment</string>
@@ -47,7 +46,7 @@
     <string name="no_person_image">No Person</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
-    <string name="forget_password">Forget Password?</string>
+    <string name="forget_password"><u>Forget Password?</u></string>
     <string name="sign_in">Sign In</string>
     <string name="general_image">General Image</string>
     <string name="total_income_200_tk">Total Income: 200 Tk.</string>
@@ -59,6 +58,9 @@
     <string name="add">ADD</string>
     <string name="prescription">Prescription</string>
     <string name="hospital">Hospital</string>
+    <string name="preference">Preference</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="edit_profile">Edit Profile</string>
 
     <string-array name="per_day_medicine">
         <item>1 – 0 – 0</item>
@@ -76,5 +78,10 @@
     <string-array name="am_pm">
         <item>AM</item>
         <item>PM</item>
+    </string-array>
+
+    <string-array name="assistant_type">
+        <item>Assistant</item>
+        <item>Receptionist</item>
     </string-array>
 </resources>

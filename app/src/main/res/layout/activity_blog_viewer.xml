@@ -1,44 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/blogImageBEIV"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:title="Viewer"
+            app:titleTextColor="@android:color/white"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#e9e9e9"
-            android:src="@drawable/no_image_available"
+            android:layout_height="?android:attr/actionBarSize"
+            android:theme="@style/Theme.AppCompat"
+            android:background="@color/colorPrimaryDark"
             />
 
-        <TextView
-            android:id="@+id/blogTitleBVTV"
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:lines="1"
-            android:text="Blog Titile"
-            android:textColor="@android:color/black"
-            android:background="@drawable/bottom_line_cyan"
-            />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/blogContentBVTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Blog Content"
-            android:textColor="@android:color/black"
-            android:padding="12dp"
-            android:textSize="15sp"
-            android:gravity="start"
-            />
+            <ImageView
+                android:id="@+id/blogPosterBVIV"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#e9e9e9"
+                android:src="@drawable/no_image_available"
+                android:contentDescription="Blog Image" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/blogContentBVTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Blog Content"
+                android:textColor="@android:color/black"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:gravity="start"
+                />
 
-</android.support.v4.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/blogWriterBVTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nov 14 2018 - Written by Dr. Hasim Ali"
+                android:padding="15dp"
+                android:textSize="12sp"
+                android:gravity="start"
+                />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

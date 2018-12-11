@@ -16,15 +16,17 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.ActivityTrigger;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Vars.ActivityTrigger;
+import app.doctor.dmcx.app.da.project.doctorapp.Common.PosterImageCallback;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.BlogController;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.CounterController;
-import app.doctor.dmcx.app.da.project.doctorapp.Controller.IAction;
+import app.doctor.dmcx.app.da.project.doctorapp.Controller.DashboardController;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Controller.ProfileController;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Blog;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Doctor;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
+import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -44,7 +46,7 @@ public class DashboardFragment extends Fragment {
     private TextView newHomeServiceCounterDBTV;
     private TextView newApptCounterDBTV;
 
-    private ImageView blogImageDBIV;
+    private ImageView blogPosterDBIV;
     private TextView blogTitleDBTV;
     private TextView blogContentDBTV;
     private Button writeBlogNowDBBTN;
@@ -58,6 +60,7 @@ public class DashboardFragment extends Fragment {
     private ConstraintLayout noBlogDBCL;
     private ConstraintLayout blogMainDBCL;
 
+    private Blog blog;
     private ModelHandler modelHandler = new ModelHandler();
     // Variables
 
@@ -107,7 +110,7 @@ public class DashboardFragment extends Fragment {
         newMessageCounterDBTV = view.findViewById(R.id.newMessageCounterDBTV);
         newHomeServiceCounterDBTV = view.findViewById(R.id.newHomeServiceCounterDBTV);
         newApptCounterDBTV = view.findViewById(R.id.newApptCounterDBTV);
-        blogImageDBIV = view.findViewById(R.id.blogImageDBIV);
+        blogPosterDBIV = view.findViewById(R.id.blogPosterDBIV);
         blogTitleDBTV = view.findViewById(R.id.blogTitleDBTV);
         blogContentDBTV = view.findViewById(R.id.blogContentDBTV);
         recpNameTV = view.findViewById(R.id.recpNameTV);
@@ -130,7 +133,16 @@ public class DashboardFragment extends Fragment {
         writeBlogNowDBBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActivityTrigger.BlogEditorActivity(null);
+                ActivityTrigger.BlogEditorActivity(Vars.ParentActivity.HOME_ACTIVITY, null);
+            }
+        });
+
+        blogMainDBCL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (blog != null) {
+                    ActivityTrigger.BlogViewerActivity(Vars.ParentActivity.HOME_ACTIVITY, blog);
+                }
             }
         });
     }
@@ -155,7 +167,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void loadCounter() {
-        CounterController.CountNewAppointments(new IAction() {
+        DashboardController.CountNewAppointments(new IAction() {
             @Override
             public void onCompleteAction(Object object) {
                 if (object instanceof Integer) {
@@ -170,7 +182,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        CounterController.CountNewHomeService(new IAction() {
+        DashboardController.CountNewHomeService(new IAction() {
             @Override
             public void onCompleteAction(Object object) {
                 if (object instanceof Integer) {
@@ -185,7 +197,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        CounterController.CountNewMessages(new IAction() {
+        DashboardController.CountNewMessages(new IAction() {
             @Override
             public void onCompleteAction(Object object) {
                 if (object instanceof Integer) {
@@ -199,6 +211,21 @@ public class DashboardFragment extends Fragment {
                 }
             }
         });
+
+        DashboardController.CountActiveAssistants(new IAction() {
+            @Override
+            public void onCompleteAction(Object object) {
+                if (object instanceof Integer) {
+                    if ((Integer) object < 9) {
+                        recpStatusTV.setText(new StringBuilder("Active: ").append(object));
+                    } else {
+                        recpStatusTV.setText(new StringBuilder("Active: ").append("*"));
+                    }
+                } else {
+                    recpStatusTV.setText(new StringBuilder("Active: ").append("0"));
+                }
+            }
+        });
     }
 
     private void loadLastBlog() {
@@ -207,13 +234,16 @@ public class DashboardFragment extends Fragment {
             public void onCompleteAction(Object object) {
                 if (object != null) {
                     switchBlogLayout(View.VISIBLE, View.GONE);
-                    Blog blog = (Blog) object;
+                    blog = (Blog) object;
 
                     if (!blog.getPoster().equals(""))
-                        Picasso.with(RefActivity.refACActivity.get()).load(blog.getPoster()).placeholder(R.drawable.noimage).into(blogImageDBIV);
+                        Picasso.with(RefActivity.refACActivity.get())
+                                .load(blog.getPoster())
+                                .placeholder(R.drawable.no_image_available)
+                                .into(blogPosterDBIV, PosterImageCallback.getInstance().setImageView(blogPosterDBIV));
 
                     blogTitleDBTV.setText(blog.getTitle());
-                    blogContentDBTV.setText(blog.getTitle());
+                    blogContentDBTV.setText(blog.getContent());
 
                 } else {
                     switchBlogLayout(View.GONE, View.VISIBLE);

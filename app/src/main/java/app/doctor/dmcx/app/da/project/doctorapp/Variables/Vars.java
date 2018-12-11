@@ -1,7 +1,6 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Variables;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AppFirebase;
 import app.doctor.dmcx.app.da.project.doctorapp.LocalDatabase.LocalDB;
@@ -20,18 +19,23 @@ public class Vars {
     }
 
     public static class Connector {
-        public static final String MESSAGE_ACTIVITY_DATA            = "M A D";
-        public static final String VIEW_IMAGE_DATA                  = "V I D";
-        public static final String PERSCRIPTION_ACTIVITY_DATA       = "P A D";
-        public static final String PROFILE_EDIT_FRAGMENT_DATA       = "P E F D";
-        public static final String AUDIO_CALL_ACTIVITY_DATA         = "A C A D";
-        public static final String BLOG_FRAGMENT_DATA               = "B F D";
-        public static final String PRESCRIPTION_LIST_FRAGMENT_DATA  = "P L F D";
+        public static final String MESSAGE_ACTIVITY_DATA                = "M A D";
+        public static final String VIEW_IMAGE_DATA                      = "V I D";
+        public static final String PERSCRIPTION_ACTIVITY_DATA           = "P A D";
+        public static final String PROFILE_EDIT_FRAGMENT_DATA           = "P E F D";
+        public static final String AUDIO_CALL_ACTIVITY_DATA             = "A C A D";
+        public static final String BLOG_EDITOR_ACTIVITY_DATA            = "B E A D";
+        public static final String BLOG_VIEWER_ACTIVITY_DATA            = "B V A D";
+        public static final String PRESCRIPTION_LIST_FRAGMENT_DATA      = "P L F D";
+        public static final String HOME_SERVICE_REGISTER_ACTIVITY_DATA  = "H S R D";
     }
 
-    public static class ActivityAction {
-        public static final String CREATE = "Activity Action Create";
-        public static final String EDIT = "Activity Action Edit";
+    public static class ParentActivity {
+        public static final String TRIG_BLOG_EDITOR_ACTIVITY = "TRIG BLOG EDITOR ACTIVITY";
+        public static final String TRIG_BLOG_VIEWER_ACTIVITY = "TRIG BLOG VIEWER ACTIVITY";
+
+        public static final String HOME_ACTIVITY = "HOME ACTIVITY";
+        public static final String MY_BLOG_ACTIVITY = "MY BLOG ACTIVITY";
     }
 
     public static class RequestCode {

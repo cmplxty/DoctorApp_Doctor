@@ -26,45 +26,66 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.io.File;
 import java.io.IOException;
 
-import app.doctor.dmcx.app.da.project.doctorapp.Activities.HomeActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Activities.Home.HomeActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Common.PosterImageCallback;
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
+import app.doctor.dmcx.app.da.project.doctorapp.Controller.BlogController;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Blog;
 import app.doctor.dmcx.app.da.project.doctorapp.R;
+import app.doctor.dmcx.app.da.project.doctorapp.Utility.ValidationText;
 import app.doctor.dmcx.app.da.project.doctorapp.Variables.Vars;
 import id.zelory.compressor.Compressor;
 
 public class BlogEditorActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private ImageView blogImageBEIV;
+    private ImageView blogPosterBEIV;
     private EditText blogTitleBEET;
     private EditText blogContentBEET;
 
-    private String activityAction;
+    private String parentActivity;
     private Blog blog;
-    private Uri blogImage;
+    private Uri posterImage;
+    private boolean isNewBlog;
 
     private void init() {
         toolbar = findViewById(R.id.toolbar);
-        blogImageBEIV = findViewById(R.id.blogImageBEIV);
+        blogPosterBEIV = findViewById(R.id.blogPosterBEIV);
         blogTitleBEET = findViewById(R.id.blogTitleBEET);
         blogContentBEET = findViewById(R.id.blogContentBEET);
 
-        blog = getIntent().getParcelableExtra(Vars.Connector.BLOG_FRAGMENT_DATA);
+        parentActivity = getIntent().getStringExtra(Vars.ParentActivity.TRIG_BLOG_EDITOR_ACTIVITY);
+        blog = getIntent().getParcelableExtra(Vars.Connector.BLOG_EDITOR_ACTIVITY_DATA);
         if (blog != null) {
-            if (!blog.getImage_link().equals(""))
-                Picasso.with(RefActivity.refACActivity.get()).load(blog.getImage_link()).placeholder(R.drawable.wallpaper_health).into(blogImageBEIV);
+            isNewBlog = false;
+
+            if (!blog.getPoster().equals("")) {
+                Picasso.with(RefActivity.refACActivity.get())
+                        .load(blog.getPoster())
+                        .placeholder(R.drawable.no_image_available)
+                        .into(blogPosterBEIV, PosterImageCallback.getInstance().setImageView(blogPosterBEIV));
+            } else {
+                blogPosterBEIV.setImageResource(R.drawable.no_image_available);
+            }
+
+
             blogTitleBEET.setText(blog.getTitle());
             blogContentBEET.setText(blog.getContent());
+        } else {
+            isNewBlog = true;
+            blogPosterBEIV.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
     }
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void event() {
-        blogImageBEIV.setOnClickListener(new View.OnClickListener() {
+        blogPosterBEIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkPermission()) {
@@ -110,6 +131,40 @@ public class BlogEditorActivity extends AppCompatActivity {
         return null;
     }
 
+    private void saveBlog() {
+        String title = blogTitleBEET.getText().toString();
+        String content = blogContentBEET.getText().toString();
+
+        if (title.equals("") || content.equals("")) {
+            Toast.makeText(RefActivity.refACActivity.get(), ValidationText.TitleAndContentBothNeeded, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (blog == null)
+            blog = new Blog();
+
+        blog.setTitle(title);
+        blog.setContent(content);
+        BlogController.SaveBlog(posterImage, blog);
+    }
+
+    private void updateBlog() {
+        String title = blogTitleBEET.getText().toString();
+        String content = blogContentBEET.getText().toString();
+
+        if (title.equals("") || content.equals("")) {
+            Toast.makeText(RefActivity.refACActivity.get(), ValidationText.TitleAndContentBothNeeded, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (blog == null)
+            blog = new Blog();
+
+        blog.setTitle(title);
+        blog.setContent(content);
+        BlogController.UpdateBlog(posterImage, blog);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,8 +184,19 @@ public class BlogEditorActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.saveBEMI:
+            case R.id.saveBEMI: {
+                if (isNewBlog) {
+                    saveBlog();
+                } else {
+                    updateBlog();
+                }
+                onBackPressed();
                 break;
+            }
+            case android.R.id.home: {
+                onBackPressed();
+                break;
+            }
         }
         return true;
     }
@@ -174,16 +240,18 @@ public class BlogEditorActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if (result != null) {
-                blogImage = result.getUri();
-                Uri compress = compressImage(blogImage);
+                posterImage = result.getUri();
+                Uri compress = compressImage(posterImage);
 
                 if (compress == null)
-                    blogImageBEIV.setImageURI(blogImage);
+                    blogPosterBEIV.setImageURI(posterImage);
                 else {
                     Toast.makeText(RefActivity.refACActivity.get(), "Compressed", Toast.LENGTH_SHORT).show();
-                    blogImageBEIV.setImageURI(compress);
+                    blogPosterBEIV.setImageURI(compress);
                 }
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            }
+
+            if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 if (result != null) {
                     Exception error = result.getError();
                     Toast.makeText(RefActivity.refACActivity.get(), "Error! " + error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -194,7 +262,18 @@ public class BlogEditorActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        RefActivity.updateACActivity(HomeActivity.instance.get());
+        switch (parentActivity) {
+            case Vars.ParentActivity.HOME_ACTIVITY:
+                RefActivity.updateACActivity(HomeActivity.instance.get());
+                break;
+            case Vars.ParentActivity.MY_BLOG_ACTIVITY:
+                RefActivity.updateACActivity(MyBlogActivity.instance.get());
+                break;
+            default:
+                RefActivity.updateACActivity(HomeActivity.instance.get());
+                break;
+        }
+
         super.onBackPressed();
     }
 }

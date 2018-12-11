@@ -1,14 +1,14 @@
 package app.doctor.dmcx.app.da.project.doctorapp.Controller;
 
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import app.doctor.dmcx.app.da.project.doctorapp.Common.RefActivity;
 import app.doctor.dmcx.app.da.project.doctorapp.Firebase.AFModel;
-import app.doctor.dmcx.app.da.project.doctorapp.Firebase.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.ICallback;
+import app.doctor.dmcx.app.da.project.doctorapp.Interface.IAction;
 import app.doctor.dmcx.app.da.project.doctorapp.Model.Prescription;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingDialog;
 import app.doctor.dmcx.app.da.project.doctorapp.Utility.LoadingText;
@@ -81,12 +81,7 @@ public class PrescriptionController {
         Vars.appFirebase.loadSpecificPatientPrescriptions(patientId, new ICallback() {
             @Override
             public void onCallback(boolean isSuccessful, Object object) {
-                if (isSuccessful) {
-                    action.onCompleteAction(object);
-                } else {
-                    if (object instanceof String)
-                        Toast.makeText(RefActivity.refACActivity.get(), String.valueOf(object), Toast.LENGTH_SHORT).show();
-                }
+                action.onCompleteAction(object);
             }
         });
     }
